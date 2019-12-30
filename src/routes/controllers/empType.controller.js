@@ -1,5 +1,5 @@
 const EmpTypeService =
-  require('../../services/employeeAccount.service');
+  require('../../services/employmentType.service');
 const db = require('../../db');
 /**
  *
@@ -26,7 +26,7 @@ class EmpTypeController {
       //please check these parts .
       //                       _/|\_
     })()
-        .then((empType) => res.json({id: record.id}))
+        .then((empType) => res.json({"type": empType.type}))
         .catch((e)=>res.json({error: e}));
       
     }
