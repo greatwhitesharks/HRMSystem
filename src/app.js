@@ -14,6 +14,7 @@ const indexRouter = require('./routes/index');
 const recordRouter = require('./routes/record');
 const accountRouter = require('./routes/account');
 const leaveRouter = require('./routes/leave');
+const empTypeRouter = require('./routes/empType');
 
 // Routes for the frontend
 const frontendRouter = require('./routes/frontend');
@@ -47,7 +48,7 @@ app.use('/', frontendRouter);
 app.use('/record', recordRouter);
 app.use('/account', accountRouter);
 app.use('/absence', leaveRouter);
-
+app.use('/empType', empTypeRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
