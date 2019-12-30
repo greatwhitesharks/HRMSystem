@@ -11,21 +11,24 @@ class EmpTypeController {
      * @param {*} res
      */
     static create(req, res) {
-      const {
-        id,
-        email,
-        password,
-      } = req.body;
+      (async () => {
+        const {
+          type,
+        } = req.body;
   
       const empTypeService = new EmpTypeService(db);
-      empTypeService.create(
-          id,
-          email,
-          password,
-      ).then(() => res.json({id, email})).catch(() => {
-        res.json({error: 'error'});
-      },
+      
+      const empType = await empTypeService.create(
+          type,
       );
+      
+      return empType;
+      //please check these parts .
+      //                       _/|\_
+    })()
+        .then((empType) => res.json({id: record.id}))
+        .catch((e)=>res.json({error: e}));
+      
     }
   }
   
