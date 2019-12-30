@@ -4,7 +4,7 @@
 const EmploymentTypeRepository =
   require('../repositories/employmentType.repository');
 const EmploymentType = require('../models/employmentType.model');
-const DependentService = require('./dependent.service');
+
 /**
  *
  */
