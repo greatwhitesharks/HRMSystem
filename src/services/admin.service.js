@@ -41,41 +41,42 @@ class AdminService {
 
     await jobrepo.delete({
       title:job
-<<<<<<< HEAD
     });
   }
 
-  async findPayGrade(job){
+  async findPayGrade(paygrade){
     const paygradeRepo = new PayGradeRepository(this.db);
     await paygraderepo.find({
-      title:job
+      name:paygrade
     });
     return true // need to return a boolean value from the result
   }
 
-  async addPayGrade(job,salary) {
+  async addPayGrade(name,minsalary,maxsalary,branchid) {
 
-    const jobRepo = new PayGradeRepository(this.db);
+    const paygradeRepo = new PayGradeRepository(this.db);
 
-    await jobrepo.create({
-      title:job,
-      salary
+    await paygraderepo.create({
+      name:name,
+      minsalary,
+      maxsalary,
+      branchid
     });
 
     return new PayGrade(
-        job,
-        salary
+      name,
+      minsalary,
+      maxsalary,
+      branchid
     );
   }
   
-  async removePayGrade(job) {
+  async removePayGrade(paygrade) {
 
-    const jobRepo = new PayGradeRepository(this.db);
+    const paygradeRepo = new PayGradeRepository(this.db);
 
-    await jobrepo.delete({
-      title:job
-=======
->>>>>>> d0f5f3dad80222f1162bae1451ce6777a94882d9
+    await paygraderepo.delete({
+      name:paygrade
     });
   }
 }
