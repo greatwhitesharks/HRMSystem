@@ -86,7 +86,8 @@ class EmployeeRecordService {
     } else {
       // Throw error
     }
-  }    
+  }
+
 
   /**
   *

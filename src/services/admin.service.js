@@ -11,6 +11,7 @@ class AdminService {
   constructor(db) {
     this.db = db;
   }
+  
   async findJob(job){
     const jobRepo = new JobTitleRepository(this.db);
     await jobrepo.find({
@@ -40,6 +41,7 @@ class AdminService {
 
     await jobrepo.delete({
       title:job
+<<<<<<< HEAD
     });
   }
 
@@ -72,6 +74,8 @@ class AdminService {
 
     await jobrepo.delete({
       title:job
+=======
+>>>>>>> d0f5f3dad80222f1162bae1451ce6777a94882d9
     });
   }
 }
