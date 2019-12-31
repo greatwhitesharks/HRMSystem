@@ -90,6 +90,14 @@ class AbsenceService {
     return (employee.supervisorId === requesterId);
   }
 
+  async getLeaveInfoAll(supervisorId){
+  const absenceRepo = new AbsenceRepository(this.db);
+      return await leveInfoAll;
+  }
+  async getLeaveInfo(employeeRecordId){
+    const absenceRepo = new AbsenceRepository(this.db);
+    return await absenceRepo.getLeaveInfo(employeeRecordId);
+
   /**
    *
    * @param {*} supervisorId
@@ -102,6 +110,7 @@ class AbsenceService {
     return leveInfo;
   }
 
+
   /**
    *
    * @param {*} employeeRecordId
@@ -110,6 +119,25 @@ class AbsenceService {
     const attr='status';
     const absenceRepo = new AbsenceRepository(this.db);
     return await absenceRepo.findOneByOne(attr, employeeRecordId);
+  }
+  async isAvailableLeave(id,type){
+    const absenceRepo = new AbsenceRepository(this.db);
+    return await absenceRepo.isAvailableLeave(id,type);
+  }
+
+  async applyLeave(id,type,from,to,comment){
+    const absenceRepo = new AbsenceRepository(this.db);
+    var stmt=await this.isAvailableLeave(id,type);
+    if (stmt==true){
+    var stmt=await absenceRepo.applyLeave(id,type,from,to,comment);
+    if (stmt=='err'){
+    return "can not apply 2 leaves for same period";
+    }
+    return "Request Pending.";
+    }
+    else{
+      return "No left Leaves for This type.";
+    }
   }
 }
 

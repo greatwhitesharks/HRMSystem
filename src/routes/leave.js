@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/supervise', LeaveController.superviseLeave);
-router.post('/leaveInfo',LeaveController.getLeaveInfo);
-router.post('/leaveStatus',LeaveController.getLeaveStatus);
+router.post('/getLeaveInfoAll',LeaveController.getLeaveInfo);
+router.post('/getLeaveInfo',LeaveController.getLeaveInfo);
+router.post('/applyLeave',LeaveController.applyLeave);
 module.exports = router;
