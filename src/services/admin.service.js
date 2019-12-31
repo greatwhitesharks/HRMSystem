@@ -10,6 +10,14 @@ class AdminService {
   constructor(db) {
     this.db = db;
   }
+  
+  async findJob(job){
+    const jobRepo = new JobTitleRepository(this.db);
+    await jobrepo.find({
+      title:job
+    });
+    return true // need to return a boolean value from the result
+  }
 
   async addJobTitle(job,salary) {
 
