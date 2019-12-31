@@ -27,6 +27,32 @@ class AdminController{
               });
         }
     }
+
+    static async addPayGrade(req,res){
+        const {name,minsalary,maxsalary,branchid} = req.body;
+        const adminService = new AdminService(db);
+        const sts = await adminService.findPayGrade(name); //checking if the paygrade already exist in the db - return boolean value
+        if (sts){//paygrade not in the db
+            adminService.addPayGrade (name,minsalary,maxsalary,branchid);
+        }else {//paygrade already exist in the db
+            res.json({
+                "paygrade":"decline" // change this accordingly
+              });
+            
+        }
+    }
+    static async removePayGrade(req,res){
+        const name = req.body;
+        const adminService = new AdminService(db);
+        const sts = await adminService.findPayGrade(name); //checking if the paygrade already exist in the db - return boolean value
+        if (sts){//paygrade already exist in the database logic
+            adminService.removePayGrade (name);
+        }else {
+            res.json({
+                "paygrade":"decline"
+              });
+        }
+    }
 }
 
 module.exports = AdminController;

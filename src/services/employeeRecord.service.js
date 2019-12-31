@@ -86,11 +86,7 @@ class EmployeeRecordService {
     } else {
       // Throw error
     }
-  }
-  async changeJob(id,job){
-
-  }
-     
+  }    
 
   /**
   *
