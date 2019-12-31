@@ -2,7 +2,7 @@ const BaseRepository = require('../db/common/baseRepository');
 
 //create , delete methods check krnna wenwa
 
-class JobTitleRepository extends BaseRepository {
+class PayGradeRepository extends BaseRepository {
     /**
      *
      * @param {*} db
@@ -12,4 +12,4 @@ class JobTitleRepository extends BaseRepository {
     }
   }
   
-module.exports = JobTitleRepository;
+module.exports = PayGradeRepository;
