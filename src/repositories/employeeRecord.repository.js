@@ -68,6 +68,9 @@ class EmployeeRecordRepository extends BaseRepository {
   async delete() {
     throw new Error('Employee records cannot be deleted');
   }
+  async updateJob(iden,job){
+    return await this.db.execute(`UPDATE TABLE employee_record SET job.title=job WHERE id=iden`);
+  }
 }
 
 module.exports = EmployeeRecordRepository;
