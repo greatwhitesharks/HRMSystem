@@ -97,12 +97,13 @@ class AbsenceService {
   async getLeaveInfo(employeeRecordId){
     const absenceRepo = new AbsenceRepository(this.db);
     return await absenceRepo.getLeaveInfo(employeeRecordId);
+  }
 
-  /**
-   *
-   * @param {*} supervisorId
-   */
-  async getLeaveInfo(supervisorId) {
+  // /**
+  //  *
+  //  * @param {*} supervisorId
+  //  */
+  async getLeaveInfoAll(supervisorId) {
     availableLeave = getPaygradeLeaveCount(leaveId) -
       getTakenLeavesValue(leaveId);
 
@@ -111,15 +112,6 @@ class AbsenceService {
   }
 
 
-  /**
-   *
-   * @param {*} employeeRecordId
-   */
-  async getLeaveStatus(employeeRecordId) {
-    const attr='status';
-    const absenceRepo = new AbsenceRepository(this.db);
-    return await absenceRepo.findOneByOne(attr, employeeRecordId);
-  }
   async isAvailableLeave(id,type){
     const absenceRepo = new AbsenceRepository(this.db);
     return await absenceRepo.isAvailableLeave(id,type);

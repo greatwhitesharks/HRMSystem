@@ -113,7 +113,7 @@ class RecordController {
       const recordService= new EmployeeRecordService(db);
       await recordService.delete(id);
 
-
+  }
   /**
    *
    * @param {*} req

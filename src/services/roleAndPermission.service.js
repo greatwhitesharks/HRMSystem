@@ -1,7 +1,5 @@
 const roleRepository =require('../repositories/role.repository');
 const permissionRepository =require('../repositories/permission.repository');
-const permission = require('../models/permission.model');
-const role=require('../models/role.model');
 class RoleAndPermissionService {
     /**
      *
