@@ -109,6 +109,11 @@ class RecordController {
         .catch((e)=>res.json({error: e}));
   }
 
+  async delete(id){
+      const recordService= new EmployeeRecordService(db);
+      await recordService.delete(id);
+
+  }
   /**
    *
    * @param {*} req
@@ -118,6 +123,7 @@ class RecordController {
   static async view(req, res, next) {
     const recordService = new EmployeeRecordService(db);
     res.json((await recordService.getById(req.params.id)));
+
   }
 }
 

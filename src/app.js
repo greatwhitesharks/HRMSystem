@@ -16,6 +16,9 @@ const accountRouter = require('./routes/account');
 const jobRouter = require('./routes/job');
 const leaveRouter = require('./routes/leave');
 
+const roleAndPermission=require('./routes/roleAndPermission');
+
+
 // Routes for the frontend
 //const frontendRouter = require('./routes/frontend');
 
@@ -52,6 +55,8 @@ app.use('/removejob', jobRouter);
 app.use('/addpaygrade', jobRouter);
 app.use('/removepaygrade', jobRouter);
 app.use('/absence', leaveRouter);
+app.use('/roleAndPermission',roleAndPermission);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

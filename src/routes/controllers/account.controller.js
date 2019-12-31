@@ -27,7 +27,7 @@ class AccountController {
     },
     );
   }
-  static changeJob = (res,req,next)=>{
+  static changeJob(res,req,next){
     const jobService = new EmployeeAccountService(db);
     const id = req.body.id;  
     const job= req.body.job;
