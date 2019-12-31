@@ -99,19 +99,6 @@ class AbsenceService {
     return await absenceRepo.getLeaveInfo(employeeRecordId);
   }
 
-  // /**
-  //  *
-  //  * @param {*} supervisorId
-  //  */
-  async getLeaveInfoAll(supervisorId) {
-    availableLeave = getPaygradeLeaveCount(leaveId) -
-      getTakenLeavesValue(leaveId);
-
-    // TODO IMPLEMENT LEAVE INFO RETRIEVE
-    return leveInfo;
-  }
-
-
   async isAvailableLeave(id,type){
     const absenceRepo = new AbsenceRepository(this.db);
     return await absenceRepo.isAvailableLeave(id,type);
