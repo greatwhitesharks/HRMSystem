@@ -51,7 +51,8 @@ app.use('/account', accountRouter);
 app.use('/addjob', jobRouter);
 app.use('/removejob', jobRouter);
 app.use('/absence', leaveRouter);
-app.use('/empType', empTypeRouter);
+app.use('/addEmpType', empTypeRouter);
+app.use('/removeEmpType', empTypeRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

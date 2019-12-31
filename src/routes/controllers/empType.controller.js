@@ -30,6 +30,27 @@ class EmpTypeController {
         .catch((e)=>res.json({error: e}));
       
     }
+
+    static delete(req, res) {
+      (async () => {
+        const {
+          type,
+        } = req.body;
+  
+      const empTypeService = new EmpTypeService(db);
+      
+      const empType = await empTypeService.delete(
+          type,
+      );
+      
+      //please check these parts .
+      //                       _/|\_
+    })()
+        .then((empType) => res.json({"type": "deleted"}))
+        .catch((e)=>res.json({error: e}));
+      
+    }
+
   }
   
   module.exports = EmpTypeController;

@@ -36,6 +36,14 @@ class EmploymentTypeService {
     return new EmploymentType(empType);
   }
 
+  async delete(data, custom) {
+    // TODO: Refactor this and getId
+    // Insert employee record
+    const typeRepo = new EmploymentTypeRepository(this.db);
+
+    data.type = (await typeRepo.delete(data)); //Please check this line
+  }
+
 }
 
 module.exports = EmploymentTypeService;
