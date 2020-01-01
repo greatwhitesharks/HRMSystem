@@ -21,11 +21,11 @@ Human Resource Managment System made for CS 3042 group project
 - [ ] System should update leave counts of each employee when leaves are approved
 - [ ] Managerial employees should be able to view leave counts of the employees
 - [ ] Admin(or any suitable role as defined in your SRS) should be able to configure leave related properties, add/remove job titles, pay graded etc.
-- [ ] System should be able to generate the following reports
-  - [ ] Employee by department
-  - [ ] Total leaves in given period by department
-  - [ ] Employee reports grouped by job title, department, pay grade etc.
-  - [ ] Reports based on custom fields (should contain at least 2 custom fields created beforehand)
+- [x] System should be able to generate the following reports
+  - [x] Employee by department
+  - [x] Total leaves in given period by department
+  - [x] Employee reports grouped by job title, department, pay grade etc.
+  - [x] Reports based on custom fields (should contain at least 2 custom fields created beforehand)
 
 ## ERD
 

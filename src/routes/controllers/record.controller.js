@@ -4,7 +4,7 @@ const CustomAttributeService =
   require('../../services/customAttribute.service');
 const AddressRepository = require('../../repositories/address.repository');
 const {camelCase} = require('lodash');
-const DependentRepository = require('../../repositories/dependent.repository');
+const DependentService = require('../../services/dependent.service');
 /**
  *
  */
@@ -36,8 +36,8 @@ class RecordController {
       } = req.body;
       // Extract custom attributes from request
       const attribService = new CustomAttributeService(db);
-      let attributes = await attribService.getAttributes();
-      attributes = attributes.map((e) => camelCase(e));
+      let attributes = await attribService.getAttributes(['name']);
+      attributes = attributes.map((e) => camelCase(e.name));
 
       const custom = {};
 
@@ -86,29 +86,13 @@ class RecordController {
       const addressId = (await addressRepo.save(address)).id;
       await addressRepo.addAddressToEmployee(addressId, record.id);
 
-      //  Code to add dependent information
-      if (req.body.dependents) {
-        const dependents = [];
-        for (const dependent of req.body.dependents) {
-          dependents.push({
-            firstName: dependent.firstName,
-            middleName: dependent.middleName || '',
-            lastName: dependent.lastName,
-            birthdate: dependent.birthday,
-            relation: dependent.relation,
-            employeeRecordId: record.id,
-          });
-        }
-        const dependentRepo = new DependentRepository(db);
-        dependentRepo.createMany(dependents);
-      }
-
       return record;
     })()
         .then((record) => res.json({id: record.id}))
         .catch((e)=>res.json({error: e}));
   }
-
+//this is a procedeural implementation to auto  delete account when record employment type changed to retired/etc...
+ //this method won't delete records except delete accounts and change record satus.
   async delete(id){
       const recordService= new EmployeeRecordService(db);
       await recordService.delete(id);
@@ -120,10 +104,69 @@ class RecordController {
    * @param {*} res
    * @param {*} next
    */
+  static async saveDependentInfo(req, res, next) {
+    //  Code to add dependent information
+    if (req.body.dependents) {
+      const dependents = [];
+      for (const dependent of req.body.dependents) {
+        dependents.push({
+          firstName: dependent.firstName,
+          middleName: dependent.middleName || '',
+          lastName: dependent.lastName,
+          birthdate: dependent.birthday,
+          relation: dependent.relation,
+          employeeRecordId: record.id,
+        });
+      }
+      const dependentService = new DependentService(db);
+      await dependentService.saveMany(dependents);
+      return res.json({status: 'success'});
+    }
+  }
+
+
+  /**
+   *
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   */
+  static async deleteDependentInfo(req, res, next) {
+    //  Code to add dependent information
+    if (req.body.dependentIds) {
+      const dependents = req.body.dependentIds;
+      const dependentService = new DependentService(db);
+      await dependentService.deleteByIds(dependents);
+      return res.json({status: 'success'});
+    }
+  }
+  /**
+   *
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   */
   static async view(req, res, next) {
     const recordService = new EmployeeRecordService(db);
-    res.json((await recordService.getById(req.params.id)));
+    return res.json((await recordService.getById(req.params.id)));
+  }
 
+  /**
+   *
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   */
+  static async search(req, res, next) {
+    // Todo : get the requesters branch and constrain the search
+    const recordService = new EmployeeRecordService(db);
+    const results = await recordService.searchInBranch(
+        req.body.branch,
+        req.body.term,
+        req.body.page || 0,
+    );
+
+    res.json(results);
   }
 }
 

@@ -1,6 +1,8 @@
 const EmployeeAccountService =
   require('../../services/employeeAccount.service');
 const db = require('../../db');
+const bcrypt = require('bcrypt');
+
 /**
  *
  */
@@ -21,23 +23,22 @@ class AccountController {
     accountService.create(
         id,
         email,
-        password,
+        bcrypt.hashSync(password, process.env.SALT_ROUNDS),
     ).then(() => res.json({id, email})).catch(() => {
       res.json({error: 'error'});
     },
     );
   }
-  static changeJob(res,req,next){
-    const jobService = new EmployeeAccountService(db);
-    const id = req.body.id;  
-    const job= req.body.job;
-       //might need to change above two statements to get the right attributes
-    const emp= jobService.changeJob(id,job);
-    res.render('/changedjob',{
-        pageTitle: 'Changed',
-        job: job
-    });        
-};
+
+  /**
+   *
+   * @param {*} req
+   * @param {*} res
+   */
+  static delete(req, res) {
+    const accountService = new EmployeeAccountService(db);
+    accountService.delete(req.body.recordId);
+  }
 }
 
 module.exports = AccountController;

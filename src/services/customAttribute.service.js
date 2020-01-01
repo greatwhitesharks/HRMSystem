@@ -15,9 +15,9 @@ class CustomAttributeService {
   /**
    *
    */
-  async getAttributes() {
+  async getAttributes(columns = ['name']) {
     const customAttributeRepo = new CustomAttributeRepository(this.db);
-    return await customAttributeRepo.getAttributes();
+    return await customAttributeRepo.getAttributes(columns);
   }
 }
 

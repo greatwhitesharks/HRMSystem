@@ -13,7 +13,7 @@ class PermissionRepository extends BaseRepository {
           var entities=[];
           Object.keys(result[0]).forEach(async (key)=> {
           var entity={};
-          entity["event"]=result[0][key].entity;
+          entity["entity"]=result[0][key].entity;
           entity["action"]=result[0][key].action;
           entity["group"]=result[0][key].group;
           entities.push(entity);  
@@ -21,6 +21,7 @@ class PermissionRepository extends BaseRepository {
           return entities;
         });
     }
+   
    
 }
 module.exports=PermissionRepository;
