@@ -41,7 +41,7 @@ class EmploymentTypeService {
     // Insert employee record
     const typeRepo = new EmploymentTypeRepository(this.db);
 
-    data.type = (await typeRepo.delete(data)); //Please check this line
+    typeRepo.delete(data); //Please check this line
   }
 
 }
