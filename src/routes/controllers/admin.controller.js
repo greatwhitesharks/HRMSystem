@@ -52,6 +52,26 @@ class AdminController{
           .catch((e)=>res.json({error: e}));
         
       }
+
+      //veiwing organization data
+
+      static viewOrganization(req, res) {
+        (async () => {
+    
+        const adminService = new AdminService(db);
+        
+        const organization = await adminService.viewOrganization();
+        
+        return organization;
+        //please check these parts .
+        //                       _/|\_
+      })()
+          .then((organization) => res.json({"name": organization.name}))
+          .catch((e)=>res.json({error: e}));
+        
+      }
+
+
 }
 
 module.exports = AdminController;

@@ -48,6 +48,7 @@ class AdminService {
 
     return new Organization(organization);
   }
+  
 }
 
 module.exports = AdminService;
