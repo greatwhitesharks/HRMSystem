@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const db = require('../../db');
 const {ensureLoggedIn, ensureLoggedOut} = require('connect-ensure-login');
-
+const CustomAttributeService =
+  require('../../services/customAttribute.service');
 
 const reportController = require('../controllers/report.controller');
 router.get('/',
