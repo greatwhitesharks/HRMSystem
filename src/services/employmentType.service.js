@@ -1,6 +1,8 @@
 /**
  * Employment Type Service
  */
+const BaseRepository =
+  require('../db/common/baseRepository');
 const EmploymentTypeRepository =
   require('../repositories/employmentType.repository');
 const EmploymentType = require('../models/employmentType.model');
@@ -26,7 +28,7 @@ class EmploymentTypeService {
   async create(
     type,
 ) {
-  const empRepo = new BaseRepository(this.db,'job_title');
+  const empRepo = new BaseRepository(this.db,'employement_type');
   await empRepo.save({
     type
   });
