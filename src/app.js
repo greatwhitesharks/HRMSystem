@@ -18,17 +18,20 @@ const leaveRouter = require('./routes/leave');
 const empTypeRouter = require('./routes/empType');
 const organizationRouter =require('./routes/organization');
 
+const roleAndPermission=require('./routes/roleAndPermission');
+
+
 // Routes for the frontend
-//const frontendRouter = require('./routes/frontend');
+const frontendRouter = require('./routes/frontend');
 
 const app = express();
 
 // view engine setup
-//const expressLayouts = require('express-ejs-layouts');
+const expressLayouts = require('express-ejs-layouts');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-//app.use(expressLayouts);
+app.use(expressLayouts);
 
 // Don't use a layout by default
 app.set('layout', false);
@@ -45,16 +48,22 @@ app.use(express.static(
 
 
 app.use('/', indexRouter);
-//app.use('/', frontendRouter);
+app.use('/', frontendRouter);
 
 app.use('/record', recordRouter);
 app.use('/account', accountRouter);
 app.use('/addjob', jobRouter);
 app.use('/removejob', jobRouter);
+app.use('/addpaygrade', jobRouter);
+app.use('/removepaygrade', jobRouter);
+app.use('/changeleavelimit', jobRouter);
 app.use('/absence', leaveRouter);
 app.use('/addEmpType', empTypeRouter);
 app.use('/removeEmpType', empTypeRouter);
 app.use('/organization', organizationRouter);
+app.use('/roleAndPermission',roleAndPermission);
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

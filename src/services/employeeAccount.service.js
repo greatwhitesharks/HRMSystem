@@ -40,6 +40,7 @@ class EmployeeAccountService {
         password,
     );
   }
+
 }
 
 module.exports = EmployeeAccountService;
