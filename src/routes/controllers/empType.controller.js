@@ -39,7 +39,7 @@ class EmpTypeController {
   
       const empTypeService = new EmpTypeService(db);
       
-      const empType = await empTypeService.delete(
+      return await empTypeService.delete(
           type,
       );
       
