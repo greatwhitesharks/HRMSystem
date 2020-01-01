@@ -4,8 +4,6 @@ const db = require('../../db');
 class AdminController{
     static async addJobTitle(req,res){
         const adminService = new AdminService(db);
-        console.log(req.body);
-        
         await adminService.addJobTitle(
             req.body.jobTitle,
             req.body.jobSalary,
@@ -57,8 +55,6 @@ class AdminController{
 
     static async addPayGrade(req,res){
         const adminService = new AdminService(db);
-        console.log(req.body);
-        
         await adminService.addPayGrade(
             req.body.payGradeName,
             req.body.minSalary,
@@ -76,14 +72,17 @@ class AdminController{
     }
 
     static async changeLeaveLimit(req,res){
-        const {type,
-            paygrade,
-            leavecount,
-            reset} = req.body;
         const adminService = new AdminService(db);
-        await adminService.changeLeaveLimit (type,paygrade,leavecount,reset);
-        res.json();
+        await adminService.changeLeaveLimit (
+            req.body.paygradeType,
+            req.body.payGradeName,
+            req.body.leaveCount,
+            req.body.paygradeReset,
+        );
+        req.flash('sucess','Pay Grade Leave Limit Changed Successfully')
+        res.redirect('/paygrade/leavechange');  
     }
+    
 }
 
 module.exports = AdminController;
