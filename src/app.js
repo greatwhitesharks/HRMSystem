@@ -15,7 +15,6 @@ const recordRouter = require('./routes/record');
 const accountRouter = require('./routes/account');
 const jobRouter = require('./routes/job');
 const leaveRouter = require('./routes/leave');
-
 const roleAndPermission=require('./routes/roleAndPermission');
 
 

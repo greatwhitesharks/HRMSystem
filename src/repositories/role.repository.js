@@ -13,24 +13,21 @@ class RoleRepository extends BaseRepository {
     super(db, 'role_has_permission');
 
   }
-  async createPermission(object) {
-    return await this.db.execute(`insert into ${this.table}(role,entity,action,group)values(?,?,?,?)`,
-      [object.role,
-      object.entity,
-      object.action,
-      object.group]).then((result,err) => {
-        if(err){
-          console.log("error");
-        }
-        
-      });
-  }
-
   async createRole(object){
-    var permissions=object.getPermissions();
-    Object.keys(permissions).forEach(async (key)=> {
-      await this.createPemission(permissions[key]);
-}); 
+     
+  }
+  async getPermissionsForSuperviser(id){
+    return await this.db.execute(`select * from ${this.table} where id `).then(async (result)=>{
+      var entities=[];
+      Object.keys(result[0]).forEach(async (key)=> {
+      var entity={};
+      entity["entity"]=result[0][key].entity;
+      entity["action"]=result[0][key].action;
+      entity["group"]=result[0][key].group;
+      entities.push(entity);  
+      });
+      return entities;
+    });
   }
 }
 

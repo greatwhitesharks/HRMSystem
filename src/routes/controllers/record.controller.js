@@ -108,7 +108,8 @@ class RecordController {
         .then((record) => res.json({id: record.id}))
         .catch((e)=>res.json({error: e}));
   }
-
+//this is a procedeural implementation to auto  delete account when record employment type changed to retired/etc...
+ //this method won't delete records except delete accounts and change record satus.
   async delete(id){
       const recordService= new EmployeeRecordService(db);
       await recordService.delete(id);

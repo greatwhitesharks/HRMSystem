@@ -65,8 +65,8 @@ class EmployeeRecordRepository extends BaseRepository {
   /**
    * Delete
    */
-  async deleteExistence(id) {
-    await this.db.execute('call deleteExistence(?)',[id]);
+  async delete(id) {
+    await this.db.execute('call delete(?)',[id]);
   }
 
 }
