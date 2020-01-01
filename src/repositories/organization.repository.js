@@ -30,7 +30,11 @@ class OrganizationRepository extends BaseRepository {
     ]);
   }
 
-  
+  async view() {
+    const data = this.db.execute(`SELECT * FROM ${this.table} LIMIT 1`, [
+      
+    ]);
+  }
 }
 
 module.exports = EmploymentTypeRepository;
