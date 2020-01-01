@@ -14,31 +14,19 @@ class OrganizationRepository extends BaseRepository {
 
 
   /**
-   *  Create the entity if it does not exsit, otherwise update
+   *  Update the object data
    * @param {*} object
    */
   async save(object) {
-    return await this.db.execute(`INSERT into ${this.table} (
-      name,
-      registration_no,
-      root_branch_id
-    ) VALUES (?,?,?) 
-    ON DUPLICATE KEY UPDATE
-    registration_no = VALUES(registration_no),
-    root_branch_id = VALUES(root_branch_id)
+    return await this.db.execute(`UPDATE ${this.table} SET (
+      name = (?),
+      registration_no = (?),
+      root_branch_id = (?)
+    ) LIMIT 1
     `, [
-      object.type || null,
-    ]);
-  }
-  /**
-   * Delete
-   */
-  async delete() {
-    return await this.db.execute(`DELETE from ${this.table} 
-      WHERE type
-      = (?) 
-    `, [
-      object.type || null,
+      object.name || null,
+      object.registration_no,
+      object.root_branch_id,
     ]);
   }
 }

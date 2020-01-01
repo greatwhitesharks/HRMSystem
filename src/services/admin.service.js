@@ -1,4 +1,5 @@
 const JobTitleRepository =require('../repositories/jobTitle.repository');
+const OrganizationRepository =require('../repositories/organization.repository');
 const EmployeeAccount = require('../models/employeeRecord.model'); //please check this one
 
 
