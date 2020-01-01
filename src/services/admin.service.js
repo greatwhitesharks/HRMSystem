@@ -1,10 +1,11 @@
+
+// const JobTitleRepository =require('../repositories/jobTitle.repository');
+// const PayGradeRepository =require('../repositories/payGrade.repository');
+const RoleRepository =require('../repositories/role.repository');
+
 const BaseRepository =
   require('../db/common/baseRepository');
 const OrganizationRepository =require('../repositories/organization.repository');
-const PayGradeRepository =require('../repositories/payGrade.repository');
-const PayGradeLeaveLimitRepository =require('../repositories/payGradeLeaveLimit.repository');
-const EmployeeAccount = require('../models/employeeRecord.model'); //please check this one
-
 
 class AdminService {
   /**
@@ -56,32 +57,19 @@ class AdminService {
     return await orgRepo.view();
   }
 
-
-  async findPayGrade(paygrade){
-    const paygradeRepo = new PayGradeRepository(this.db);
-    await paygraderepo.find({
-      name:paygrade
-    });
-    return true // need to return a boolean value from the result
-  }
-
-  async addPayGrade(name,minsalary,maxsalary,branchid) {
-
-    const paygradeRepo = new PayGradeRepository(this.db);
-
-    await paygraderepo.create({
-      name:name,
-      minsalary,
-      maxsalary,
-      branchid
-    });
-
-    return new PayGrade(
-      name,
-      minsalary,
-      maxsalary,
-      branchid
-    );
+  async addPayGrade(
+    name,
+    min_salary,
+    max_salary,
+    branchId,
+  ) {
+  const paygradeRepo = new BaseRepository(this.db,'paygrade');
+  await paygradeRepo.save({
+    name,
+    min_salary,
+    max_salary,
+    branch_id:branchId,
+  });
   }
   
   async removePayGrade(paygrade) {
@@ -93,15 +81,31 @@ class AdminService {
     });
   }
 
-  async changeLeaveLimit(type,paygrade,leavecount,reset) {
-    const paylimitRepo = new PayGradeLeaveLimitRepository(this.db);
-
-    await paylimitrepo.change({ //need to implement this change method in db
-      type:type,
+  async changeLeaveLimit(
+      type,
       paygrade,
-      leavecount,
-      reset
+      leave_count,
+      resets,
+  ) {
+    const limitrepo = new BaseRepository(this.db,'paygrade_leave_limit');
+    await limitrepo.save({
+      type,
+      paygrade,
+      leave_count,
+      resets,
     });
+  }
+  async assignRole(id,role){
+    const roleRepository=new RoleRepository(this.db);
+    await roleRepository.assignRole(id,role);
+  }
+  async deleteAssignedRole(id,role){
+    const roleRepository=new RoleRepository(this.db);
+    await roleRepository.deleteAssignedRole(id,role);
+  }
+  async getRoles(){
+    const roleRepository=new RoleRepository(this.db);
+    await roleRepository.getRoles();
   }
 }
 

@@ -4,8 +4,6 @@ const db = require('../../db');
 class AdminController{
     static async addJobTitle(req,res){
         const adminService = new AdminService(db);
-        console.log(req.body);
-        
         await adminService.addJobTitle(
             req.body.jobTitle,
             req.body.jobSalary,
@@ -56,10 +54,15 @@ class AdminController{
 
 
     static async addPayGrade(req,res){
-        const {name,minsalary,maxsalary,branchid} = req.body;
         const adminService = new AdminService(db);
-        adminService.addPayGrade (name,minsalary,maxsalary,branchid);
-        res.json();
+        await adminService.addPayGrade(
+            req.body.payGradeName,
+            req.body.minSalary,
+            req.body.maxSalary,
+            req.branchId || 0,
+        );
+        req.flash('sucess','Pay Grade Created Successfully')
+        res.redirect('/paygrade/add');   
     }
     static async removePayGrade(req,res){
         const name = req.body;
@@ -69,14 +72,30 @@ class AdminController{
     }
 
     static async changeLeaveLimit(req,res){
-        const {type,
-            paygrade,
-            leavecount,
-            reset} = req.body;
         const adminService = new AdminService(db);
-        await adminService.changeLeaveLimit (type,paygrade,leavecount,reset);
-        res.json();
+        await adminService.changeLeaveLimit (
+            req.body.paygradeType,
+            req.body.payGradeName,
+            req.body.leaveCount,
+            req.body.paygradeReset,
+        );
+        req.flash('sucess','Pay Grade Leave Limit Changed Successfully')
+        res.redirect('/paygrade/leavechange');  
     }
+    static async assignRole(req,res){
+        const adminService = new AdminService(db);
+        const {id,
+            role
+            } = req.body;
+            await adminService.assignRole(id,role);
+      }
+    static async deleteAssignedRole(req,res){
+        const adminService=new AdminService(db);
+        const {id,
+            role
+            } = req.body;
+            await adminService.deleteAssignedRole(id,role);
+    }  
 }
 
 module.exports = AdminController;
