@@ -46,4 +46,4 @@ class OrganizationRepository extends BaseRepository {
 
 }
 
-module.exports = EmploymentTypeRepository;
+module.exports = OrganizationRepository;

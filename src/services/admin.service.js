@@ -1,9 +1,7 @@
 const BaseRepository =
   require('../db/common/baseRepository');
 const OrganizationRepository =require('../repositories/organization.repository');
-const PayGradeRepository =require('../repositories/payGrade.repository');
 const PayGradeLeaveLimitRepository =require('../repositories/payGradeLeaveLimit.repository');
-const EmployeeAccount = require('../models/employeeRecord.model'); //please check this one
 
 
 class AdminService {
@@ -56,32 +54,19 @@ class AdminService {
     return await orgRepo.view();
   }
 
-
-  async findPayGrade(paygrade){
-    const paygradeRepo = new PayGradeRepository(this.db);
-    await paygraderepo.find({
-      name:paygrade
-    });
-    return true // need to return a boolean value from the result
-  }
-
-  async addPayGrade(name,minsalary,maxsalary,branchid) {
-
-    const paygradeRepo = new PayGradeRepository(this.db);
-
-    await paygraderepo.create({
-      name:name,
-      minsalary,
-      maxsalary,
-      branchid
-    });
-
-    return new PayGrade(
-      name,
-      minsalary,
-      maxsalary,
-      branchid
-    );
+  async addPayGrade(
+    name,
+    min_salary,
+    max_salary,
+    branchId,
+  ) {
+  const paygradeRepo = new BaseRepository(this.db,'paygrade');
+  await paygradeRepo.save({
+    name,
+    min_salary,
+    max_salary,
+    branch_id:branchId,
+  });
   }
   
   async removePayGrade(paygrade) {
