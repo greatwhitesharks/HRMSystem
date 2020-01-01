@@ -1,4 +1,5 @@
-const JobTitleRepository =require('../repositories/jobTitle.repository');
+const BaseRepository =
+  require('../db/common/baseRepository');
 const OrganizationRepository =require('../repositories/organization.repository');
 const PayGradeRepository =require('../repositories/payGrade.repository');
 const PayGradeLeaveLimitRepository =require('../repositories/payGradeLeaveLimit.repository');
@@ -14,20 +15,17 @@ class AdminService {
     this.db = db;
   }
 
-  async addJobTitle(job,salary) {
-
-    const jobRepo = new JobTitleRepository(this.db);
-
-    await jobrepo.create({
-      title:job,
+  async addJobTitle(
+      title,
+      salary,
+  ) {
+    const jobrepo = new BaseRepository(this.db,'job_title');
+    await jobrepo.save({
+      title,
       salary
     });
-
-    return new JobTitle(
-        job,
-        salary
-    );
   }
+
   
   async removeJobTitle(job) {
 
