@@ -33,6 +33,20 @@ class AdminService {
       title:job
     });
   }
+
+  async updateOrganization(data) {
+    // TODO: Refactor this and getId
+    // Insert employee record
+    const orgRepo = new OrganizationRepository(this.db);
+
+    await orgRepo.save(data);
+
+    const organization = {};
+
+    Object.assign(organization, data);
+
+    return new Organization(organization);
+  }
 }
 
 module.exports = AdminService;

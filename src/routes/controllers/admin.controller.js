@@ -27,6 +27,31 @@ class AdminController{
               });
         }
     }
+
+    static updateOrganization(req, res) {
+        (async () => {
+          const {
+            name,
+            registration_no,
+            root_branch_id,
+          } = req.body;
+    
+        const adminService = new AdminService(db);
+        
+        const organization = await adminService.updateOrganization(
+            name,
+            registration_no,
+            root_branch_id,
+        );
+        
+        return organization;
+        //please check these parts .
+        //                       _/|\_
+      })()
+          .then((organization) => res.json({"name": organization.name}))
+          .catch((e)=>res.json({error: e}));
+        
+      }
 }
 
 module.exports = AdminController;
