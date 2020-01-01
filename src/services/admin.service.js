@@ -7,9 +7,6 @@ const BaseRepository =
   require('../db/common/baseRepository');
 const OrganizationRepository =require('../repositories/organization.repository');
 
-const PayGradeLeaveLimitRepository =require('../repositories/payGradeLeaveLimit.repository');
-
-
 class AdminService {
   /**
    *
@@ -84,14 +81,18 @@ class AdminService {
     });
   }
 
-  async changeLeaveLimit(type,paygrade,leavecount,reset) {
-    const paylimitRepo = new PayGradeLeaveLimitRepository(this.db);
-
-    await paylimitrepo.change({ //need to implement this change method in db
-      type:type,
+  async changeLeaveLimit(
+      type,
       paygrade,
-      leavecount,
-      reset
+      leave_count,
+      resets,
+  ) {
+    const limitrepo = new BaseRepository(this.db,'paygrade_leave_limit');
+    await limitrepo.save({
+      type,
+      paygrade,
+      leave_count,
+      resets,
     });
   }
   async assignRole(id,role){

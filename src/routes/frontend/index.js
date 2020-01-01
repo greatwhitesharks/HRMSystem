@@ -100,6 +100,15 @@ router.get('/paygrade/add', (req, res) => {
     paygrade:{},
   });
 });
+
+router.get('/paygrade/leavechange', (req, res) => {
+  res.render('paygrade/change', {
+    layout: 'layouts/main',
+    title: 'Change Pay Grade Leave Limit',
+    paygradelimit:{},
+  });
+});
+
 router.get('/employee-reports/', reportController.generateEmployeeReport);
 
 router.get('/leave-reports/', reportController.generateLeaveReport);
