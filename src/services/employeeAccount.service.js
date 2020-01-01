@@ -1,5 +1,7 @@
 const EmployeeAccountRepository =
   require('../repositories/employeeAccount.repository');
+const EmployeeRecordService =
+  require('../services/employeeRecord.service');
 const EmployeeAccount = require('../models/employeeRecord.model');
 
 /**
@@ -17,6 +19,17 @@ class EmployeeAccountService {
     this.db = db;
   }
 
+  /**
+   *
+   * @param {*} recordId
+   */
+  async delete(recordId) {
+    const accountRepo = new EmployeeAccountRepository(this.db);
+
+    await accountRepo.delete({
+      employee_record_id: recordId,
+    });
+  }
   /**
    *
    * @param {*} employeeRecordId
@@ -39,6 +52,27 @@ class EmployeeAccountService {
         email,
         password,
     );
+  }
+
+  /**
+   *
+   * @param {*} email
+   */
+  async getRecordAccountByEmail(email) {
+    const accountRepo = new EmployeeAccountRepository(this.db);
+    let record = null;
+    const account = await accountRepo.findOne({
+      email,
+    }) || null;
+
+    if (account) {
+      const recService = new EmployeeRecordService(this.db);
+      record = await recService.getById(account.employee_record_id);
+    }
+    return {
+      account,
+      record,
+    };
   }
 }
 

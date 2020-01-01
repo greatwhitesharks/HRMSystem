@@ -104,6 +104,22 @@ class EmployeeRecordService {
     }
     return addresses;
   }
+
+  /**
+   * Search employees in a branch
+   * @param {*} branch
+   * @param {*} term
+   * @param {*} page
+   */
+  async searchInBranch(branch, term, page = 1) {
+    // Todo: what to do when page is invalid
+    const repo = new EmployeeRecordRepository(db);
+    const pageSize = 10;
+    const limit = pageSize;
+    const offset = pageSize * (page - 1);
+    const results = await repo.search(term, branch, limit, offset);
+    return results;
+  }
 }
 
 module.exports = EmployeeRecordService;

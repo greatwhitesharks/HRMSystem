@@ -68,6 +68,39 @@ class EmployeeRecordRepository extends BaseRepository {
   async delete() {
     throw new Error('Employee records cannot be deleted');
   }
+
+  /**
+   *
+   * @param {*} term
+   * @param {*} branch
+   * @param {*} limit
+   * @param {*} offset
+   */
+  async search(term, branch, limit = null, offset = 0) {
+    return await this.db.execute(`
+      Select 
+      first_name as firstName,
+      last_name as lastName,
+      employment_type as employementType,
+      job_title as jobTitle,
+      paygrade,
+      employee_photo as employeePhoto,
+      department.name as department,
+
+      from ${this.table} LEFT JOIN department
+      ON department_id = department.id
+      JOIN branch on branch_id = branch.id
+      where branch = ?
+      AND
+      (
+        first_name LIKE %?%
+        OR
+        last_name LIKE %?%
+      )
+      LIMIT ?
+      OFFSET ?
+      `, [branch, term, term, limit, offset])[0];
+  }
 }
 
 module.exports = EmployeeRecordRepository;

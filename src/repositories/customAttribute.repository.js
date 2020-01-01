@@ -13,13 +13,16 @@ class CustomAttributeRepository extends BaseRepository {
   }
 
   /**
-   *
+   * 
+   * @param {String[]} columns
    */
-  async getAttributes() {
+  async getAttributes(columns) {
+    // TODO: Decide whether to store or not
     if (this.constructor.attributes) {
       return this.constructor.attributes;
     }
-    const result = await this.db.execute('SELECT name FROM custom_attribute');
+    columns = columns.join(', ');
+    const result = await this.db.execute(`SELECT ${columns} FROM custom_attribute`);
     const attributes = result[0];
     this.constructor.customAttributes = attributes;
     return attributes;

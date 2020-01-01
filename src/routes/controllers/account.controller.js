@@ -1,6 +1,8 @@
 const EmployeeAccountService =
   require('../../services/employeeAccount.service');
 const db = require('../../db');
+const bcrypt = require('bcrypt');
+
 /**
  *
  */
@@ -21,11 +23,21 @@ class AccountController {
     accountService.create(
         id,
         email,
-        password,
+        bcrypt.hashSync(password, process.env.SALT_ROUNDS),
     ).then(() => res.json({id, email})).catch(() => {
       res.json({error: 'error'});
     },
     );
+  }
+
+  /**
+   *
+   * @param {*} req
+   * @param {*} res
+   */
+  static delete(req, res) {
+    const accountService = new EmployeeAccountService(db);
+    accountService.delete(req.body.recordId);
   }
 }
 

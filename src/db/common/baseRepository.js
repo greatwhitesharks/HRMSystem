@@ -1,4 +1,4 @@
-const snakeCase = require('lodash');
+const {snakeCase} = require('lodash');
 /**
  * Base Repository
  */
@@ -42,6 +42,7 @@ class BaseRepository {
     if (limit !== false) {
       sql += ` limit ${limit}`;
     }
+    
     const result = await this.db.execute(sql, flat);
     return result[0];
   }
