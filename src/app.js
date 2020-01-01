@@ -17,7 +17,7 @@ const db =require('./db');
 
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcrypt');
+//const bcrypt = require('bcrypt');
 
 passport.serializeUser(function(user, done) {
   done(null, user.account.email);
@@ -33,7 +33,7 @@ passport.use(new LocalStrategy(function(email, password, done) {
   const accountService = new AccountService(db);
   accountService.getRecordAccountByEmail(email).then((object)=>{
     if (object.account) {
-      bcrypt.compare(password, object.account.password, (err, correct) => {
+      //bcrypt.compare(password, object.account.password, (err, correct) => {
         if (err) {
           message = [{'msg': 'Incorrect Password/Email'}];
 
@@ -42,7 +42,6 @@ passport.use(new LocalStrategy(function(email, password, done) {
         if (correct) {
           return done(null, object);
         }
-      });
     } else {
       message = [{'msg': 'Incorrect Password/Email'}];
       return done(null, false, {message});
@@ -116,8 +115,7 @@ app.use('/job', jobRouter);
 app.use('/paygrade', payGradeRouter);
 app.use('/absence', leaveRouter);
 app.use('/department', departmentRouter);
-app.use('/addEmpType', empTypeRouter);
-app.use('/removeEmpType', empTypeRouter);
+app.use('/empType', empTypeRouter);
 app.use('/organization', organizationRouter);
 app.use('/roleAndPermission',roleAndPermission);
 

@@ -2,7 +2,7 @@ const EmploymentTypeService = require('../services/employmentType.service');
 const db = require('../db');
 
 /** Class representing information about an employeee */
-class employmentType {
+class EmploymentType {
   /**
    * Create an EmployeeRecord object with the given data
    * @param {Object} data - The data of the record.
@@ -56,4 +56,4 @@ class employmentType {
   // }
 }
 
-module.exports = EmployeeRecord;
+module.exports = EmploymentType;

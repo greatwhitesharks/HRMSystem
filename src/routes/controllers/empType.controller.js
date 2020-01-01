@@ -10,26 +10,16 @@ class EmpTypeController {
      * @param {*} req
      * @param {*} res
      */
-    static create(req, res) {
-      (async () => {
-        const {
-          type,
-        } = req.body;
-  
+    static async create(req,res){
       const empTypeService = new EmpTypeService(db);
+      console.log(req.body);
       
-      const empType = await empTypeService.create(
-          type,
+      await empTypeService.create(
+          req.body.employmentType,
       );
-      
-      return empType;
-      //please check these parts .
-      //                       _/|\_
-    })()
-        .then((empType) => res.json({"type": empType.type}))
-        .catch((e)=>res.json({error: e}));
-      
-    }
+      req.flash('success','Employment Type Created Successfully')
+      res.redirect('/empType/add');   
+  }
 
     static delete(req, res) {
       (async () => {

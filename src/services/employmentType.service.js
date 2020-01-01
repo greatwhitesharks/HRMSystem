@@ -22,19 +22,15 @@ class EmploymentTypeService {
    * @param {*} data
    * @param {*} custom
    */
-  async create(data, custom) {
-    // TODO: Refactor this and getId
-    // Insert employee record
-    const typeRepo = new EmploymentTypeRepository(this.db);
 
-    data.type = (await typeRepo.save(data))[0].insertType;
-
-    const empType = {};
-
-    Object.assign(empType, data);
-
-    return new EmploymentType(empType);
-  }
+  async create(
+    type,
+) {
+  const empRepo = new BaseRepository(this.db,'job_title');
+  await empRepo.save({
+    type
+  });
+}
 
   async delete(data, custom) {
     // TODO: Refactor this and getId
