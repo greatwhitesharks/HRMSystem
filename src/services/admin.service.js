@@ -1,6 +1,6 @@
 
-const JobTitleRepository =require('../repositories/jobTitle.repository');
-const PayGradeRepository =require('../repositories/payGrade.repository');
+// const JobTitleRepository =require('../repositories/jobTitle.repository');
+// const PayGradeRepository =require('../repositories/payGrade.repository');
 const RoleRepository =require('../repositories/role.repository');
 
 const BaseRepository =
