@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="card-body">
-        <form action="/department/create" method="post"
+        <form action="/department/create" enctype="application/x-www-form-urlencoded" method="post"
         <% if (department) { %>
           <input name="departmentId" type="hidden" value="<%= department.id%>">
         <%}%>
