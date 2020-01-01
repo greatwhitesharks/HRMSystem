@@ -14,6 +14,7 @@ const indexRouter = require('./routes/index');
 const recordRouter = require('./routes/record');
 const accountRouter = require('./routes/account');
 const jobRouter = require('./routes/job');
+const payGradeRouter = require('./routes/paygrade');
 const leaveRouter = require('./routes/leave');
 
 const roleAndPermission=require('./routes/roleAndPermission');
@@ -50,11 +51,8 @@ app.use('/', indexRouter);
 
 app.use('/record', recordRouter);
 app.use('/account', accountRouter);
-app.use('/addjob', jobRouter);
-app.use('/removejob', jobRouter);
-app.use('/addpaygrade', jobRouter);
-app.use('/removepaygrade', jobRouter);
-app.use('/changeleavelimit', jobRouter);
+app.use('/job', jobRouter);
+app.use('/paygrade', payGradeRouter);
 app.use('/absence', leaveRouter);
 app.use('/roleAndPermission',roleAndPermission);
 
