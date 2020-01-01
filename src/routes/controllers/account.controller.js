@@ -1,5 +1,6 @@
 const EmployeeAccountService =
   require('../../services/employeeAccount.service');
+   
 const db = require('../../db');
 /**
  *
@@ -37,7 +38,7 @@ class AccountController {
         pageTitle: 'Changed',
         job: job
     });        
-};
+}
 }
 
 module.exports = AccountController;

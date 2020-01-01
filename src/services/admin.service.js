@@ -1,5 +1,6 @@
 const JobTitleRepository =require('../repositories/jobTitle.repository');
 const PayGradeRepository =require('../repositories/payGrade.repository');
+const RoleRepository =require('../repositories/role.repository');
 const PayGradeLeaveLimitRepository =require('../repositories/payGradeLeaveLimit.repository');
 const EmployeeAccount = require('../models/employeeRecord.model'); //please check this one
 
@@ -90,6 +91,18 @@ class AdminService {
       leavecount,
       reset
     });
+  }
+  async assignRole(id,role){
+    const roleRepository=new RoleRepository(this.db);
+    await roleRepository.assignRole(id,role);
+  }
+  async deleteAssignedRole(id,role){
+    const roleRepository=new RoleRepository(this.db);
+    await roleRepository.deleteAssignedRole(id,role);
+  }
+  async getRoles(){
+    const roleRepository=new RoleRepository(this.db);
+    await roleRepository.getRoles();
   }
 }
 
