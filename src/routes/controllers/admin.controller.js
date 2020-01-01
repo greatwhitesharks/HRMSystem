@@ -53,6 +53,16 @@ class AdminController{
               });
         }
     }
+
+    static async changeLeaveLimit(req,res){
+        const {type,
+            paygrade,
+            leavecount,
+            reset} = req.body;
+        const adminService = new AdminService(db);
+        await adminService.changeLeaveLimit (type,paygrade,leavecount,reset);
+        res.json();
+    }
 }
 
 module.exports = AdminController;

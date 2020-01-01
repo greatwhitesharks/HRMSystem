@@ -1,5 +1,6 @@
 const JobTitleRepository =require('../repositories/jobTitle.repository');
 const PayGradeRepository =require('../repositories/payGrade.repository');
+const PayGradeLeaveLimitRepository =require('../repositories/payGradeLeaveLimit.repository');
 const EmployeeAccount = require('../models/employeeRecord.model'); //please check this one
 
 
@@ -77,6 +78,17 @@ class AdminService {
 
     await paygraderepo.delete({
       name:paygrade
+    });
+  }
+
+  async changeLeaveLimit(type,paygrade,leavecount,reset) {
+    const paylimitRepo = new PayGradeLeaveLimitRepository(this.db);
+
+    await paylimitrepo.change({ //need to implement this change method in db
+      type:type,
+      paygrade,
+      leavecount,
+      reset
     });
   }
 }
