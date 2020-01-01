@@ -18,7 +18,7 @@ class AbsenceRepository extends BaseRepository {
    * @param {string||int} value
    */
   async getLeaveInfo(employeeRecordId){
-     const sql="select `from`,`to`,type,`status`" +`from ${this.table} where employee_record_id=? and `+"`from`>=CURDATE()";
+     const sql="select `from`,`to`,type,`status`" +`from ${this.table} where employee_record_id=? and `+" `from`>=CURDATE()";
      return await this.db.execute(sql,[employeeRecordId]).then(async (result)=>{
       var leaveInfo=[];
       Object.keys(result[0]).forEach(async (key)=> {
@@ -32,22 +32,23 @@ class AbsenceRepository extends BaseRepository {
       return leaveInfo;
      });
   }
-  async getLeaveInfoAll(departmentId,branchId){
-    const sql="select first_name,middle_name,last_name,`from`,`to`,type,`status`" +`from ${this.table} natural join employee_record where department_id=? and branch_id=? and `+"`from`>=CURDATE()";
-    return await this.db.execute(sql,[departmentId,branchId]).then(async (result)=>{
-     var leaveInfo=[];
+  async getLeaveInfoAll(supervisorId){
+    const sql="select absence.id aid,first_name,middle_name,last_name,`from`,`to`,`comment`,type,job_title " +`from ${this.table} , employee_record where employee_record.id=${this.table}.employee_record_id and supervisor_id=? `+" and `from` >=CURDATE()";
+    return await this.db.execute(sql,[supervisorId]).then(async (result)=>{
+     var leaveInfoAll=[];
      Object.keys(result[0]).forEach(async (key)=> {
        var entry={};
-       entry['first_name']=result[0][key].fiest_name;
-       entry['middle_name']=result[0][key].middle_name;
-       entry['last_name']=result[0][key].last_name;
+       entry['id']=result[0][key].aid;
+       entry['fullName']=result[0][key].first_name+" "+result[0][key].middle_name+" "+result[0][key].last_name;
+       entry['title']=result[0][key].job_title;
        entry['from']=result[0][key].from;
        entry['to']=result[0][key].to;
        entry['type']=result[0][key].type;
-       entry['status']=result[0][key].status;
-       leaveInfo.push(entry);
+       entry['comment']=result[0][key].comment;
+       leaveInfoAll.push(entry);
  }); 
-     return leaveInfo;
+  
+     return leaveInfoAll;
     });
   }
   async isAvailableLeave(id,type){
