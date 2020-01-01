@@ -31,10 +31,19 @@ class OrganizationRepository extends BaseRepository {
   }
 
   async view() {
-    const data = this.db.execute(`SELECT * FROM ${this.table} LIMIT 1`, [
-      
-    ]);
+    return await this.db.execute(`SELECT * FROM ${this.table} LIMIT 1`).then(async (result)=>{
+        var entities=[];
+        Object.keys(result[0]).forEach(async (key)=> {
+        var entity={};
+        entity["name"]=result[0][key].name;
+        entity["registration_no"]=result[0][key].registration_no;
+        entity["root_branch_id"]=result[0][key].root_branch_id;
+        entities.push(entity);  
+        });
+        return entities;
+      });
   }
+
 }
 
 module.exports = EmploymentTypeRepository;

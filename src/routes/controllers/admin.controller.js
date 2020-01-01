@@ -55,18 +55,9 @@ class AdminController{
 
       //veiwing organization data
 
-      static viewOrganization(req, res) {
-        (async () => {
-    
-        const adminService = new AdminService(db);
-        
-        res.jason(await adminService.viewOrganization());
-        
-        //please check these parts .
-        //                       _/|\_
-      })()
-          .catch((e)=>res.json({error: e}));
-        
+      static async viewOrganization(req,res){
+        const adminService=new AdminService(db);
+        res.json(await adminService.viewOrganization());
       }
 
 
