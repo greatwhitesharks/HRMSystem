@@ -29,6 +29,18 @@ class RoleRepository extends BaseRepository {
       return entities;
     });
   }
+  async assignRole(id,role){
+    const sql="INSERT INTO `employee_account_has_role`(`employee_record_id`, `role`) VALUES (?,?)";
+    await this.db.execute(sql,[id,role]);
+  }
+  async deleteAssignedRole(id,role){
+    const sql="DELETE FROM `employee_account_has_role` WHERE employee_record_id=? and role=?";
+    await this.db.execute(sql,[id,role]);
+  }
+  async getRoles(){
+    const sql="";
+    return await this.db.execute(sql); 
+  }
 }
 
 module.exports = RoleRepository;

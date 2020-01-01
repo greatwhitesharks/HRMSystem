@@ -23,7 +23,7 @@ class AbsenceService {
    * @param {Number} id
    */
   async getById(id) {
-    const absenceRepo = new AbsenceRepository(db);
+    const absenceRepo = new AbsenceRepository(this.db);
 
     // Find the absence object with id
     const result = await absenceRepo.find({
@@ -47,9 +47,9 @@ class AbsenceService {
    * @throws
    */
   async approveLeave(leaveId, requesterId) {
-    const absenceRepo = new AbsenceRepository(db);
+    const absenceRepo = new AbsenceRepository(this.db);
     const leave = this.getById(leaveId);
-
+    
     if (canModifyLeaveState(leave, requesterId)) {
       leave.supervisor = requesterId;
       leave.status = 'approved';
@@ -68,7 +68,7 @@ class AbsenceService {
    */
   async declineLeave(leaveId, requesterId) {
     const leave = this.getById(leaveId);
-    const absenceRepo = new AbsenceRepository(db);
+    const absenceRepo = new AbsenceRepository(this.db);
 
     if (this.canApproveDeclineLeave(leave, requesterId)) {
       leave.supervisor = requesterId;
@@ -92,7 +92,7 @@ class AbsenceService {
 
   async getLeaveInfoAll(superviserId){
   const absenceRepo = new AbsenceRepository(this.db);
-  return await leveInfoAll(departmentId,branchId);
+  return await absenceRepo.getLeaveInfoAll(superviserId);
   }
   async getLeaveInfo(employeeRecordId){
     const absenceRepo = new AbsenceRepository(this.db);

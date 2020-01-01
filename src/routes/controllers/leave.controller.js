@@ -27,11 +27,10 @@ class LeaveController {
   }
   //This method return employee detatils under superviser
   static async getLeaveInfoAll(req,res){
-    //TODO implement using seesion superviserId
      const  leaveService= new LeaveService(db);
-      var supervisorId=2;//for test purpses
+      var supervisorId=1;//for test purpses
       var leaveInfo=await leaveService.getLeaveInfoAll(supervisorId);
-      res,json(leaveInfo);
+      res.json(leaveInfo);
   }
 static async getLeaveInfo(req,res){
 // TODO implement using seesion employeeRecordId

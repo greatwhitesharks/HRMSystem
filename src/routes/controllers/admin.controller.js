@@ -82,7 +82,20 @@ class AdminController{
         req.flash('sucess','Pay Grade Leave Limit Changed Successfully')
         res.redirect('/paygrade/leavechange');  
     }
-    
+    static async assignRole(req,res){
+        const adminService = new AdminService(db);
+        const {id,
+            role
+            } = req.body;
+            await adminService.assignRole(id,role);
+      }
+    static async deleteAssignedRole(req,res){
+        const adminService=new AdminService(db);
+        const {id,
+            role
+            } = req.body;
+            await adminService.deleteAssignedRole(id,role);
+    }  
 }
 
 module.exports = AdminController;
