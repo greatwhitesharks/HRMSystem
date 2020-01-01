@@ -67,6 +67,7 @@ class AdminService {
     const organization = await orgRepo.view();
 
     return new Organization(organization);
+  }
   async findPayGrade(paygrade){
     const paygradeRepo = new PayGradeRepository(this.db);
     await paygraderepo.find({
