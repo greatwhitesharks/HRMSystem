@@ -32,14 +32,14 @@ class AbsenceRepository extends BaseRepository {
       return leaveInfo;
      });
   }
-  async getLeaveInfoAll(supervisorId){
-    const sql="select absence.id aid,first_name,middle_name,last_name,`from`,`to`,`comment`,type,job_title " +`from ${this.table} , employee_record where employee_record.id=${this.table}.employee_record_id and supervisor_id=? `+" and `from` >=CURDATE()";
-    return await this.db.execute(sql,[supervisorId]).then(async (result)=>{
+  async getLeaveInfoAll(supervisorId, status='pending'){
+    const sql="select absence.id aid,first_name,middle_name,last_name,`from`,`to`,`comment`,type,job_title " +`from ${this.table} , employee_record where employee_record.id=${this.table}.employee_record_id and supervisor_id=? `+" and `from` >=CURDATE() and status = ?";
+    return await this.db.execute(sql,[supervisorId, status]).then(async (result)=>{
      var leaveInfoAll=[];
      Object.keys(result[0]).forEach(async (key)=> {
        var entry={};
        entry['id']=result[0][key].aid;
-       entry['fullName']=result[0][key].first_name+" "+result[0][key].middle_name+" "+result[0][key].last_name;
+       entry['fullName']=result[0][key].first_name+ " " +result[0][key].last_name;
        entry['title']=result[0][key].job_title;
        entry['from']=result[0][key].from;
        entry['to']=result[0][key].to;

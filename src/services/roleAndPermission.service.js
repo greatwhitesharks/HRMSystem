@@ -29,5 +29,11 @@ class RoleAndPermissionService {
       roleRepo.table="role";
         return (await roleRepo.getAll()).map(x=>x.role);
     }
+
+    async deleteRole(role){
+      const roleRepo=new roleRepository(this.db);
+      roleRepo.table="role";
+        return (await roleRepo.delete({role}));
+    }
 }
 module.exports=RoleAndPermissionService;   

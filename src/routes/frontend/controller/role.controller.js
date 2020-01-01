@@ -40,9 +40,9 @@ class DepartmentController {
 
   static async addUser(req, res){
     const repo = new Repository(db, 'employee_account_has_role');
-    await repo.create({
+    await repo.save({
       employee_record_id: req.body.user,
-      role: req.param.role
+      role: req.params.role
     });
 
     req.flash('success', 'User Added Successfully!');
@@ -60,12 +60,16 @@ class DepartmentController {
 
   static async addPermission(req, res){
     const repo = new Repository(db, 'role_has_permission');
-    const {entity, action, group} = req.body.permission.split('_');
-    await repo.create({
+    const arr =req.body.permission.split('_');
+    const entity = arr[1];
+    const action = arr[0];
+    const group = arr[2];
+    console.log(req.body.permission.split('_'),entity,action,group);
+    await repo.save({
       entity,
       action,
-      group,
-      role: req.param.role
+      // group,
+      role: req.params.role
     });
 
     req.flash('success', 'Permission Added Successfully!');
@@ -78,7 +82,7 @@ class DepartmentController {
       entity,
       action,
       group,
-      role: req.param.role
+      role: req.params.role
     });
 
     req.flash('success', 'Permission Removed Successfully!');
@@ -87,9 +91,13 @@ class DepartmentController {
 
   static async addJobTitle(req, res){
     const repo = new Repository(db, 'job_title_has_role');
-    await repo.create({
+    console.log({
       job_title: req.body.jobTitle,
-      role: req.param.role,
+      role: req.params.role,
+    })
+    await repo.save({
+      job_title: req.body.jobTitle,
+      role: req.params.role,
     });
 
     req.flash('success', 'Job Title Added Successfully!');
@@ -97,9 +105,9 @@ class DepartmentController {
   }
   static async deleteJobTitle(req, res){
     const repo = new Repository(db, 'job_title_has_role');
-    await repo.create({
+    await repo.save({
       job_title: req.body.jobTitle,
-      role: req.param.role,
+      role: req.params.role,
     });
 
     req.flash('success', 'Job Title Removed Successfully!');

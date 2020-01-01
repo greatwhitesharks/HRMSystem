@@ -4,17 +4,17 @@ const passport = require('passport');
 const roleController = require('./frontend/controller/role.controller');
 const roleService = require('../services/roleAndPermission.service');
 
-router.post('/role/add', roleController.create);
-router.post('/role/delete', roleController.delete);
+router.post('/roles/add', roleController.create);
+router.post('/roles/delete', roleController.delete);
 
-router.post('/role/:role/permission/add', roleController.addPermission);
-router.post('/role/:role/permission/delete', roleController.deletePermission);
+router.post('/roles/:role/add/permission', roleController.addPermission);
+router.post('/roles/:role/delete/permission', roleController.deletePermission);
 
-router.post('/role/:role/job/add', roleController.addJobTitle);
-router.post('/role/:role/job/delete', roleController.deleteJobTitle);
+router.post('/roles/:role/add/job', roleController.addJobTitle);
+router.post('/roles/:role/delete/job', roleController.deleteJobTitle);
 
-router.post('/role/:role/user/add', roleController.addUser);
-router.post('/role/:role/user/delete', roleController.deleteUser);
+router.post('/roles/:role/add/user', roleController.addUser);
+router.post('/roles/:role/delete/user', roleController.deleteUser);
 
 
 router.post('/login', passport.authenticate('local',

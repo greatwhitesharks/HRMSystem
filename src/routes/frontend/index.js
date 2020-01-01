@@ -56,7 +56,7 @@ router.get('/branch/add', (req, res) => {
 
 router.get('/leave/viewAll', async (req, res) => {
   const  leaveService= new LeaveService(db);
-  var supervisorId=1;//for test purpses
+  var supervisorId=2//for test purpses
   var leaveInfoAll=await leaveService.getLeaveInfoAll(supervisorId);
   res.render('leave/all', {
     layout: 'layouts/main',
@@ -190,6 +190,11 @@ router.get('/roles/add', (req, res)=>{
     layout: 'layouts/main',
     title: 'Add Role',
   });
+});
+
+router.get('/roles/:role/remove', async (req, res)=>{
+  await (new RoleService(db)).deleteRole(req.params.role);
+  res.redirect('/roles')
 });
 
 router.get('/roles/:id', (req, res)=>{

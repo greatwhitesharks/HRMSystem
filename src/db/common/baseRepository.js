@@ -69,14 +69,15 @@ class BaseRepository {
     // TODO : Prepared statements, extend keys for uniquenes
     const tuples = [];
     for (const key of Object.keys(object)) {
-      tuples.push(`${snakeCase(key)} = ?`);
+      tuples.push(`\`${snakeCase(key)}\` = ?`);
     }
     const sql = `INSERT INTO ${this.table} (${[
-      ...Object.keys(object),
+      ...Object.keys(object).map(x=>'`'+snakeCase(x)+'`'),
     ].join(',')}) `+
     `VALUES (${[...Object.values(object).map((x)=>'?')].join(',')}) ON `+
     ` DUPLICATE KEY UPDATE ` +
     tuples.join(',');
+    console.log(sql)
     return await this.db.execute(sql,
         [...Object.values(object), ...Object.values(object)]);
   }
