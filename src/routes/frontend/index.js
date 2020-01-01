@@ -61,7 +61,6 @@ router.get('/leave/viewAll', async (req, res) => {
 });
 router.get('/leave/approve/:id', async(req, res) => {
   var supervisorId=1;
-  console.log(req.params.id);
   const  leaveService= new LeaveService(db);
   const leave = await leaveService.getById(req.params.id);
   await leaveService.approveLeave(leave, supervisorId);
