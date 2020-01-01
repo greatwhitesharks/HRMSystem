@@ -17,21 +17,22 @@
         </div>
       </div>
       <div class="card-body">
+   <form id="personal-info" enctype="multipart/form-data" >
         <div class="form-group">
-          <label for="inputName">First Name</label>
-          <input type="text" id="inputName" pattern="[a-zA-z]+" required="required" class="form-control">
+          <label for="firstName">First Name</label>
+          <input  type="text" name="firstName" id="firstName" pattern="[a-zA-z]+" required="required" class="form-control">
         </div>
         <div class="form-group">
-          <label for="inputName">Middle Name</label>
-          <input type="text" id="inputName" pattern="[a-zA-z]+" class="form-control">
+          <label for="middleName">Middle Name</label>
+          <input id="middleName" name="middleName" type="text" class="form-control">
         </div>
         <div class="form-group">
-          <label for="inputName">Last Name</label>
-          <input type="text" id="inputName" pattern="[a-zA-z]+" required="required" class="form-control">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" name="lastName" pattern="[a-zA-z]+" required="required" class="form-control">
         </div>
         <div class="form-group">
-          <label for="inputStatus">Gender</label>
-          <select class="form-control custom-select">
+          <label for="gender">Gender</label>
+          <select name="gender" id="gender" required class="form-control custom-select">
             <option selected disabled>Select one</option>
             <option>Male</option>
             <option>Female</option>
@@ -40,8 +41,8 @@
         </div>
 
         <div class="form-group">
-          <label for="inputStatus">Marital Status</label>
-          <select class="form-control custom-select">
+          <label for="maritalStatus">Marital Status</label>
+          <select name="maritalStatus" id="maritalStatus"  required class="form-control custom-select">
             <option selected disabled>Select one</option>
             <option>Married</option>
             <option>Single</option>
@@ -57,19 +58,21 @@
                 <i class="far fa-calendar-alt"></i>
               </span>
             </div>
-            <input type="text" name="birthday" class="form-control float-right birtday" id="birthday">
+            <input required type="text" name="birthday" class="form-control float-right birtday" id="birthday">
           </div>
           <!-- /.input group -->
         </div>
 
         <div class="form-group">
-          <label for="customFile">Photo</label>
+          <label for="photo">Photo</label>
 
           <div class="custom-file">
-            <input type="file" class="custom-file-input" id="customFile">
-            <label class="custom-file-label" for="customFile">Choose a photo</label>
+            <input required type="file" class="custom-file-input" name="photo" id="photo">
+            <label class="custom-file-label" for="photo">Choose a photo</label>
           </div>
         </div>
+
+      </form>
       </div>
       <!-- /.card-body -->
     </div>
@@ -86,41 +89,40 @@
         </div>
       </div>
       <div class="card-body">
-
+        <form id="contact-info">
+          
         <div class="form-group">
-          <label for="inputName">Address Line1</label>
-          <input type="text" id="inputName" pattern="" required="required" class="form-control">
+          <label for="line1">Address Line1</label>
+          <input type="text" id="line1" name="line1" pattern="" required="required" class="form-control">
         </div>
 
         <div class="form-group">
-          <label for="inputName">Address Line2</label>
-          <input type="text" id="inputName" pattern="" required="required" class="form-control">
+          <label for="line2">Address Line2</label>
+          <input type="text" name="line2" id="line2"  class="form-control">
+        </div>
+
+ 
+
+        <div class="form-group">
+          <label for="region">Region</label>
+          <input type="text" id="region" pattern="[a-zA-z]+" required="required" name="region" class="form-control">
         </div>
 
         <div class="form-group">
-          <label for="inputName">City</label>
-          <input type="text" id="inputName" pattern="" required="required" class="form-control">
+          <label for="country">Country</label>
+          <input type="text" id="country" name="country" pattern="[a-zA-z]+" required="required" class="form-control">
         </div>
 
         <div class="form-group">
-          <label for="inputName">Region</label>
-          <input type="text" id="inputName" pattern="" required="required" class="form-control">
+          <label for="phoneNo">Phone No</label>
+          <input type="number" min="10" d="phoneNo" name="phoneNo" pattern="\d{10,}" required="required" class="form-control">
         </div>
 
         <div class="form-group">
-          <label for="inputName">Country</label>
-          <input type="text" id="inputName" pattern="" required="required" class="form-control">
+          <label for="phoneNo2">Additional Phone No</label>
+          <input type="phone" min="10" id="phoneNo2" name="phoneNo2" pattern="\d{10,}" class="form-control">
         </div>
-
-        <div class="form-group">
-          <label for="inputName">Phone No</label>
-          <input type="text" id="inputName" pattern="\d{10,}" required="required" class="form-control">
-        </div>
-
-        <div class="form-group">
-          <label for="inputName">Additional Phone No</label>
-          <input type="text" id="inputName" pattern="\d{10,}" required="required" class="form-control">
-        </div>
+      </form>
       </div>
       <!-- /.card-body -->
     </div>
@@ -133,29 +135,29 @@
     <div class="card card-primary">
       <div class="card-header">
         <h3 class="card-title">Other Employee Information</h3>
-
+     
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
             <i class="fas fa-minus"></i></button>
         </div>
       </div>
       <div class="card-body">
-
+        <form id="other-info">
         <% for (const attribute of attributes) { %>
 
         <% if(attribute.type === 'select') {%>
 
         <% } else { %>
         <div class="form-group">
-          <label for="inputName"><%= attribute.name %></label>
+          <label for="<%= attribute.name%>"><%= attribute.name %></label>
           <input required type="<%=attribute.type%>" name="<%=attribute.name%>" value="<%=attribute.default%>"
-            id="inputName" pattern="[a-zA-z]+" required="required" class="form-control">
+            id="<%= attribute.name%>" pattern="[a-zA-z]+" required="required" class="form-control">
         </div>
         <% } %>
 
         <% } %>
 
-
+      </form>
       </div>
       <!-- /.card-body -->
     </div>
@@ -237,7 +239,7 @@
         </div>
       </div>
       <div class="card-body">
-
+        <form id="employment-info">
         <div class="form-group">
           <label>Branch</label>
           <select disabled class="form-control select2bs4" style="width: 100%;">
@@ -248,7 +250,7 @@
 
         <div class="form-group">
           <label>Department</label>
-          <select class="form-control select2bs4" style="width: 100%;">
+          <select name="department" required class="form-control select2bs4" style="width: 100%;">
             <option selected="selected">Alabama</option>
             <option>Alaska</option>
             <option>California</option>
@@ -262,7 +264,7 @@
 
         <div class="form-group">
           <label>Job Title</label>
-          <select class="form-control select2bs4" style="width: 100%;">
+          <select name="jobTitle" required class="form-control select2bs4" style="width: 100%;">
             <option selected="selected">Alabama</option>
             <option>Alaska</option>
             <option>California</option>
@@ -276,7 +278,7 @@
 
         <div class="form-group">
           <label>Paygrade</label>
-          <select class="form-control select2bs4" style="width: 100%;">
+          <select name="paygrade" required class="form-control select2bs4" style="width: 100%;">
             <option selected="selected">Alabama</option>
             <option>Alaska</option>
             <option>California</option>
@@ -290,7 +292,7 @@
 
         <div class="form-group">
           <label>Employement Type</label>
-          <select class="form-control select2bs4" style="width: 100%;">
+          <select name="employmentType" required class="form-control select2bs4" style="width: 100%;">
             <option selected="selected">Alabama</option>
             <option>Alaska</option>
             <option>California</option>
@@ -300,6 +302,8 @@
             <option>Washington</option>
           </select>
         </div>
+
+      </form>
       </div>
       <!-- /.card-body -->
     </div>
@@ -307,10 +311,52 @@
   </div>
 </div>
 
+
+<div class="row">
+  <div class="col-md">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">Account</h3>
+
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+            <i class="fas fa-minus"></i></button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <div class="custom-control custom-switch">
+            <input type="checkbox" checked="false" class="custom-control-input" id="accSwitch" onchange="$('.account-creation').toggle();">
+            <label class="custom-control-label" for="accSwitch">Create account</label>
+          </div>
+        </div>
+
+        <div class="account-creation" style="">
+          <form id="account-form">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input required type="text" name="email" value=""
+                id="email" name="email" pattern="" class="form-control">
+            </div>
+  
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input required type="password" id="password" name="password" value=""
+                " pattern="" class="form-control">
+            </div>
+          </form>
+         
+        </div>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+</div>
 <div class="row">
   <div class="col-12">
     <!-- <a href="#" class="btn btn-secondary">Cancel</a> -->
-    <input type="submit" value="Create Record" class="btn btn-success float-right">
+    <input type="submit" id="createRecord" value="Create Record" class="btn btn-success float-right">
   </div>
 </div>
 
@@ -325,22 +371,23 @@
         </button>
       </div>
       <div class="modal-body">
+        <form id="dependent-form">
         <div class="form-group">
-          <label for="inputName">First Name</label>
-          <input type="text" id="dependentFirstName" pattern="[a-zA-z]+" required="required" class="form-control">
+          <label for="dependentFirstName">First Name</label>
+          <input type="text" name=dependentFirstName" id="dependentFirstName" pattern="[a-zA-z]+" required="required" class="form-control">
         </div>
         <div class="form-group">
-          <label for="inputName">Middle Name</label>
-          <input type="text" id="dependentMiddleName" pattern="[a-zA-z]+" class="form-control">
+          <label for="dependentMiddleName">Middle Name</label>
+          <input type="text" id="dependentMiddleName" name="dependentMiddleName" pattern="[a-zA-z]+" class="form-control">
         </div>
         <div class="form-group">
-          <label for="inputName">Last Name</label>
-          <input type="text" id="dependentLastName" pattern="[a-zA-z]+" required="required" class="form-control">
+          <label for="dependentLastName">Last Name</label>
+          <input type="text" id="dependentLastName" name="dependentLastName" pattern="[a-zA-z]+" required="required" class="form-control">
         </div>
 
         <div class="form-group">
-          <label for="inputName">Relation</label>
-          <input type="text" id="dependentRelation" pattern="[a-zA-z]+" required="required" class="form-control">
+          <label for="dependentRelation">Relation</label>
+          <input type="text" id="dependentRelation"name="dependentRelation" pattern="[a-zA-z]+" required="required" class="form-control">
         </div>
 
         <div class="form-group">
@@ -352,8 +399,10 @@
                 <i class="far fa-calendar-alt"></i>
               </span>
             </div>
-            <input type="text" class="form-control float-right birthday" id="dependentBirthday">
+            <input type="text" class="form-control float-right birthday" name="dependentBirthday" id="dependentBirthday">
           </div>
+
+        </form>
         </div>
       </div>
       <div class="modal-footer justify-content-between">
@@ -377,19 +426,20 @@
         </button>
       </div>
       <div class="modal-body">
+        <form id="emergency-form">
         <div class="form-group">
-          <label for="inputName">Contact Name</label>
-          <input type="text" id="emergencyContactName" required="required" class="form-control">
+          <label for="emergencyContactName">Contact Name</label>
+          <input type="text" id="emergencyContactName" name="emergencyContactName" required="required" class="form-control">
         </div>
         <div class="form-group">
-          <label for="inputName">Phone No</label>
-          <input type="text" id="emergencyContactNo" pattern="\d{10,}" required="required" class="form-control">
+          <label for="emergencyContactNo">Phone No</label>
+          <input type="number" min="10" id="emergencyContactNo" name="emergencyContactNo" pattern="\d{10,}" required="required" class="form-control">
         </div>
-
+      </form>
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="saveEmergency()" id="emergencyAdd" dismiss="modal">Save
+        <button type="button" class="btn btn-primary" onclick="saveEmergency()" id="emergencyAdd">Save
           changes</button>
       </div>
     </div>
@@ -399,12 +449,11 @@
 </div>
 <!-- /.modal -->
 
-v>
-
 <%-contentFor('scripts')%>
 <script src="/plugins/daterangepicker/daterangepicker.js"></script>
 <script src="/plugins/select2/js/select2.full.min.js"></script>
-
+<script src="/plugins/jquery.validate.min.js"></script>
+<script src="/plugins/axios.min.js"></script>
 <script>
   // Todo: Improve
   window.employeeData = {
@@ -415,6 +464,72 @@ v>
   window.selectedEmergency = null;
 
   $(function () {
+    $("#personal-info").validate({
+    rules:{
+      firstName:{
+        required: true
+      },
+    }
+  });
+  $('#emergency-form').validate();
+  $('#dependent-form').validate()
+  $('#contact-info').validate();
+  $('#other-info').validate();
+  $('#employment-info').validate();
+  <% if (attributes.length > 0)  { %>
+  $('#other-info').validate();
+  <%}%>
+  
+$('#createRecord').click(function(){
+  let valid =
+  $("#personal-info").valid() &&
+  $('#contact-info').valid() &&
+  <%- ( (attributes.length > 0)?   "$('#other-info').valid()" : true) + "&&"%>
+  $('#employment-info').valid();
+  let account = false;
+  if ($('#accSwitch').is(':checked')){
+    account = true;
+    $('#account-form').validate();
+   valid = valid && $('#account-form').valid();
+  }
+
+  if(true || valid){
+    let formData = new FormData(document.querySelector('#personal-info'));
+    console.log(document.querySelector('#personal-info'));
+    //  formData.append()
+
+    let contactData = new FormData(document.querySelector('#contact-info'));  
+    let employmentData = new FormData(document.querySelector('#employment-info'));  
+    console.log(formData, contactData, employeeData);
+    for (var pair of contactData.entries()) {
+    formData.set(pair[0], pair[1]);
+}
+
+for (var pair of employmentData.entries()) {
+    formData.append(pair[0], pair[1]);
+}
+  axios.post('/record/create', formData);
+
+// $.ajax({
+  //   type: 'POST',
+  //   url: '/record/create',
+  //   data:formData,  processData: false,
+  //   contentType: false,
+  //   success: (data)=>{
+  // //     $.ajax({
+  // //   type: 'POST',
+  // //   url: '/rerd/create',
+  // //   data:window.employeeData.dependent,
+  // //   success: (data){
+      
+  // //   }
+  // // });
+  //   }
+  // });
+  }
+
+});
+
     $('.birthday').daterangepicker({
       singleDatePicker: true,
       showDropdowns: true,
@@ -438,6 +553,7 @@ v>
 
     $('#modal-emergency ').on('hide.bs.modal', function (event) {
       $('#emergencyAdd').data('index', '');
+      console.log(  $('#emergencyAdd').data('index'))
     });
 
     $('#modal-dependent').on('show.bs.modal', function (event) {
@@ -464,12 +580,14 @@ v>
   function saveEmergency() {
 
     // Todo:Validate
-    const selected = $('#emergencyAdd').data('index');
+    if(!$('#emergency-form').valid())
+      return;
+    const selected = $('#emergencyAdd').data('index') || null;
 
     const name = $('#emergencyContactName');
     const no = $('#emergencyContactNo');
-
-    if (!(+selected >= 0)) {
+  
+    if (!Number.isInteger(selected)) {
       const index = window.employeeData.emergency.length;
       const html = ` <tr id="emergency-${index}"">
               <td>${name.val()}</td>
@@ -492,8 +610,8 @@ v>
       $(`#emergency-${selected}`).children().first().text(name.val());
       $(`#emergency-${selected}`).children().eq(1).text(no.val());
 
-      window.employeeData.emergency[selected].name = name.val();
-      window.employeeData.emergency[selected].contactNo = no.val();
+      window.employeeData.emergency[+selected].name = name.val();
+      window.employeeData.emergency[+selected].contactNo = no.val();
 
     }
     // Clear
@@ -508,6 +626,10 @@ v>
   function saveDependent() {
 
     // Todo:Validate
+    if(!($('#dependent-form').valid())){
+      return;
+    }
+
     const selected = $('#dependentAdd').data('index');
 
     const firstName = $('#dependentFirstName');
@@ -516,7 +638,7 @@ v>
     const relation = $('#dependentRelation');
     const birthday = $('#dependentBirthday');
 
-    if (!(+selected >= 0)) {
+    if (Number.isInteger(selected)) {
       const index = window.employeeData.dependent.length;
       const html = ` <tr id="dependent-${index}"">
         <td>${firstName.val()} ${lastName.val()}</td>
@@ -576,6 +698,11 @@ v>
 
 
 <%-contentFor('styles')%>
+<style>
+form .error {
+  color: #ff0000;
+}
+</style>
 <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker.css">
 <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
 <link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
