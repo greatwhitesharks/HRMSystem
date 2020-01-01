@@ -17,7 +17,7 @@ const db =require('./db');
 
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcrypt');
+//const bcrypt = require('bcrypt');
 
 passport.serializeUser(function(user, done) {
   done(null, user.account.email);
@@ -57,7 +57,12 @@ const indexRouter = require('./routes/index');
 const recordRouter = require('./routes/record');
 const accountRouter = require('./routes/account');
 const jobRouter = require('./routes/job');
+const payGradeRouter = require('./routes/paygrade');
 const leaveRouter = require('./routes/leave');
+const departmentRouter = require('./routes/department');
+const empTypeRouter = require('./routes/empType');
+const organizationRouter =require('./routes/organization');
+
 const roleAndPermission=require('./routes/roleAndPermission');
 
 
@@ -107,12 +112,13 @@ app.use('/', frontendRouter);
 
 app.use('/record', recordRouter);
 app.use('/account', accountRouter);
-app.use('/addjob', jobRouter);
-app.use('/removejob', jobRouter);
-app.use('/addpaygrade', jobRouter);
-app.use('/removepaygrade', jobRouter);
-app.use('/changeleavelimit', jobRouter);
+app.use('/job', jobRouter);
+app.use('/paygrade', payGradeRouter);
 app.use('/absence', leaveRouter);
+app.use('/department', departmentRouter);
+app.use('/addEmpType', empTypeRouter);
+app.use('/removeEmpType', empTypeRouter);
+app.use('/organization', organizationRouter);
 app.use('/roleAndPermission',roleAndPermission);
 
 

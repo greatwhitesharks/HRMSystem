@@ -9,6 +9,8 @@ const RoleService = require('../../services/roleAndPermission.service');
 const BaseRepository = require('../../db/common/baseRepository');
 const RecordService = require('../../services/employeeRecord.service');
 
+  const LeaveService =
+  require('../../services/absence.service');
 const reportController = require('../controllers/report.controller');
 router.get('/',
     ensureLoggedIn('/login')
@@ -52,12 +54,35 @@ router.get('/branch/add', (req, res) => {
   });
 });
 
-
+router.get('/leave/viewAll', async (req, res) => {
+  const  leaveService= new LeaveService(db);
+  var supervisorId=1;//for test purpses
+  var leaveInfoAll=await leaveService.getLeaveInfoAll(supervisorId);
+  res.render('leave/all', {
+    layout: 'layouts/main',
+    title: 'LeaveManger',
+    leaveInfoAll,
+  });
+});
+router.get('/leave/approve/:id', async(req, res) => {
+  var supervisorId=1;
+  const  leaveService= new LeaveService(db);
+  const leave = await leaveService.getById(req.params.id);
+  await leaveService.approveLeave(leave, supervisorId);
+  res.redirect("/leave/viewAll");
+});
+router.get('/leave/decline/:id', async(req, res) => {
+  var supervisorId=1;
+  const  leaveService= new LeaveService(db);
+  const leave = await leaveService.getById(req.params.id);
+  await leaveService.declineLeave(leave, supervisorId);
+  res.redirect("/leave/viewAll");
+});
 router.get('/department/add', (req, res) => {
   res.render('department/single', {
     layout: 'layouts/main',
     title: 'Add Department',
-    department: {},
+    department:{},
   });
 });
 /**
@@ -65,6 +90,29 @@ router.get('/department/add', (req, res) => {
  * Leaves by  Properties
  *
  */
+router.get('/job/add', (req, res) => {
+  res.render('job/add', {
+    layout: 'layouts/main',
+    title: 'Add Job',
+    job:{},
+  });
+});
+
+router.get('/paygrade/add', (req, res) => {
+  res.render('paygrade/add', {
+    layout: 'layouts/main',
+    title: 'Add Pay Grade',
+    paygrade:{},
+  });
+});
+
+router.get('/paygrade/leavechange', (req, res) => {
+  res.render('paygrade/change', {
+    layout: 'layouts/main',
+    title: 'Change Pay Grade Leave Limit',
+    paygradelimit:{},
+  });
+});
 
 router.get('/employee-reports/', reportController.generateEmployeeReport);
 
