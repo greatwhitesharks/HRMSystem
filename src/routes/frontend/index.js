@@ -78,6 +78,7 @@ router.get('/department/add', (req, res) => {
   res.render('department/single', {
     layout: 'layouts/main',
     title: 'Add Department',
+    department:{},
   });
 });
 /**
@@ -85,7 +86,21 @@ router.get('/department/add', (req, res) => {
  * Leaves by  Properties
  *
  */
+router.get('/job/add', (req, res) => {
+  res.render('job/add', {
+    layout: 'layouts/main',
+    title: 'Add Job',
+    job:{},
+  });
+});
 
+router.get('/paygrade/add', (req, res) => {
+  res.render('paygrade/add', {
+    layout: 'layouts/main',
+    title: 'Add Pay Grade',
+    paygrade:{},
+  });
+});
 router.get('/employee-reports/', reportController.generateEmployeeReport);
 
 router.get('/leave-reports/', reportController.generateLeaveReport);
