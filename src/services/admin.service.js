@@ -1,4 +1,5 @@
 const JobTitleRepository =require('../repositories/jobTitle.repository');
+const OrganizationRepository =require('../repositories/organization.repository');
 const PayGradeRepository =require('../repositories/payGrade.repository');
 const PayGradeLeaveLimitRepository =require('../repositories/payGradeLeaveLimit.repository');
 const EmployeeAccount = require('../models/employeeRecord.model'); //please check this one
@@ -35,6 +36,35 @@ class AdminService {
     await jobrepo.delete({
       title:job
     });
+  }
+
+  async updateOrganization(data) {
+    // TODO: Refactor this and getId
+    // Insert employee record
+    const orgRepo = new OrganizationRepository(this.db);
+
+    await orgRepo.save(data);
+
+    const organization = {};
+
+    Object.assign(organization, data);
+
+    return new Organization(organization);
+  }
+
+  async viewOrganization() {
+    
+    const orgRepo=new OrganizationRepository(this.db);
+    return await orgRepo.view();
+  }
+
+
+  async findPayGrade(paygrade){
+    const paygradeRepo = new PayGradeRepository(this.db);
+    await paygraderepo.find({
+      name:paygrade
+    });
+    return true // need to return a boolean value from the result
   }
 
   async addPayGrade(name,minsalary,maxsalary,branchid) {
