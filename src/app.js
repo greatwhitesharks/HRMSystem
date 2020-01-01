@@ -59,6 +59,7 @@ const accountRouter = require('./routes/account');
 const jobRouter = require('./routes/job');
 const payGradeRouter = require('./routes/paygrade');
 const leaveRouter = require('./routes/leave');
+const departmentRouter = require('./routes/department');
 const empTypeRouter = require('./routes/empType');
 const organizationRouter =require('./routes/organization');
 
@@ -97,7 +98,7 @@ app.set('layout', false);
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));
 
 
 app.use((req, res, next)=> {
@@ -114,6 +115,7 @@ app.use('/account', accountRouter);
 app.use('/job', jobRouter);
 app.use('/paygrade', payGradeRouter);
 app.use('/absence', leaveRouter);
+app.use('/department', departmentRouter);
 app.use('/addEmpType', empTypeRouter);
 app.use('/removeEmpType', empTypeRouter);
 app.use('/organization', organizationRouter);
