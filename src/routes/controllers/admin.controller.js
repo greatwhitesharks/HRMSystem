@@ -56,10 +56,17 @@ class AdminController{
 
 
     static async addPayGrade(req,res){
-        const {name,minsalary,maxsalary,branchid} = req.body;
         const adminService = new AdminService(db);
-        adminService.addPayGrade (name,minsalary,maxsalary,branchid);
-        res.json();
+        console.log(req.body);
+        
+        await adminService.addPayGrade(
+            req.body.payGradeName,
+            req.body.minSalary,
+            req.body.maxSalary,
+            req.branchId || 0,
+        );
+        req.flash('sucess','Pay Grade Created Successfully')
+        res.redirect('/paygrade/add');   
     }
     static async removePayGrade(req,res){
         const name = req.body;
