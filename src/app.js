@@ -52,6 +52,9 @@ app.use('/record', recordRouter);
 app.use('/account', accountRouter);
 app.use('/addjob', jobRouter);
 app.use('/removejob', jobRouter);
+app.use('/addpaygrade', jobRouter);
+app.use('/removepaygrade', jobRouter);
+app.use('/changeleavelimit', jobRouter);
 app.use('/absence', leaveRouter);
 app.use('/roleAndPermission',roleAndPermission);
 
