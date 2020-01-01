@@ -62,7 +62,7 @@ const roleAndPermission=require('./routes/roleAndPermission');
 
 
 // Routes for the frontend
-//const frontendRouter = require('./routes/frontend');
+const frontendRouter = require('./routes/frontend');
 
 const app = express();
 
@@ -82,11 +82,11 @@ app.use(passport.session());
 
 
 // view engine setup
-//const expressLayouts = require('express-ejs-layouts');
+const expressLayouts = require('express-ejs-layouts');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-//app.use(expressLayouts);
+app.use(expressLayouts);
 
 // Don't use a layout by default
 app.set('layout', false);
@@ -103,7 +103,7 @@ app.use((req, res, next)=> {
 
 
 app.use('/', indexRouter);
-//app.use('/', frontendRouter);
+app.use('/', frontendRouter);
 
 app.use('/record', recordRouter);
 app.use('/account', accountRouter);
