@@ -4,7 +4,8 @@ const db = require('../../db');
 const {ensureLoggedIn, ensureLoggedOut} = require('connect-ensure-login');
 const CustomAttributeService =
   require('../../services/customAttribute.service');
-
+  const LeaveService =
+  require('../../services/absence.service');
 const reportController = require('../controllers/report.controller');
 router.get('/',
     ensureLoggedIn('/login')
@@ -48,7 +49,31 @@ router.get('/branch/add', (req, res) => {
   });
 });
 
-
+router.get('/leave/viewAll', async (req, res) => {
+  const  leaveService= new LeaveService(db);
+  var supervisorId=1;//for test purpses
+  var leaveInfoAll=await leaveService.getLeaveInfoAll(supervisorId);
+  res.render('leave/all', {
+    layout: 'layouts/main',
+    title: 'LeaveManger',
+    leaveInfoAll,
+  });
+});
+router.get('/leave/approve/:id', async(req, res) => {
+  var supervisorId=1;
+  console.log(req.params.id);
+  const  leaveService= new LeaveService(db);
+  const leave = await leaveService.getById(req.params.id);
+  await leaveService.approveLeave(leave, supervisorId);
+  res.redirect("/leave/viewAll");
+});
+router.get('/leave/decline/:id', async(req, res) => {
+  var supervisorId=1;
+  const  leaveService= new LeaveService(db);
+  const leave = await leaveService.getById(req.params.id);
+  await leaveService.declineLeave(leave, supervisorId);
+  res.redirect("/leave/viewAll");
+});
 router.get('/department/add', (req, res) => {
   res.render('department/single', {
     layout: 'layouts/main',

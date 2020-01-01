@@ -1,0 +1,61 @@
+<%-contentFor('body') %>
+
+<div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Leave Information Table</h3>
+    </div>
+    
+    <div class="card-body">
+      <table id="example1" class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Title</th>
+          <th>From</th>
+          <th>Type</th>
+          <th>To</th>
+          <th>Comment</th>
+          <th>Approve/Reject</th>
+          
+        </tr>
+        </thead>
+        <tbody>
+          <% Object(leaveInfoAll).forEach(function (key) { %>
+        <tr>
+          <td><%= key.fullName %></td>
+          <td>
+            <%= key.title %>
+          </td>
+          <td><%= key.from %></td>
+          <td><%= key.to %></td>
+          <td> <%= key.type%></td>
+          <td><%= key.comment %></td>
+          <td>
+            <div class="btn-group">
+              <a href="/leave/approve/<%= key.id %>"><button type="button" class="btn btn-info">Approve</button></a>
+              <a href="/leave/decline/<%= key.id %>"><button type="button" class="btn btn-info">Decline</button></a>
+            </div>
+          </td>
+        </tr>
+        <%  }); %>
+        </tbody>
+        <tfoot>
+        <tr>
+          <th>Full Name</th>
+          <th>Title</th>
+          <th>From</th>
+          <th>Type</th>
+          <th>To</th>
+          <th>Comment</th>
+          <th>Approve/Reject</th>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  
+<%-contentFor('styles')%>
+
+
+<%-contentFor('scripts')%>

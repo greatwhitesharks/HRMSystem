@@ -1,6 +1,12 @@
+
+const JobTitleRepository =require('../repositories/jobTitle.repository');
+const PayGradeRepository =require('../repositories/payGrade.repository');
+const RoleRepository =require('../repositories/role.repository');
+
 const BaseRepository =
   require('../db/common/baseRepository');
 const OrganizationRepository =require('../repositories/organization.repository');
+
 const PayGradeLeaveLimitRepository =require('../repositories/payGradeLeaveLimit.repository');
 
 
@@ -87,6 +93,18 @@ class AdminService {
       leavecount,
       reset
     });
+  }
+  async assignRole(id,role){
+    const roleRepository=new RoleRepository(this.db);
+    await roleRepository.assignRole(id,role);
+  }
+  async deleteAssignedRole(id,role){
+    const roleRepository=new RoleRepository(this.db);
+    await roleRepository.deleteAssignedRole(id,role);
+  }
+  async getRoles(){
+    const roleRepository=new RoleRepository(this.db);
+    await roleRepository.getRoles();
   }
 }
 

@@ -84,6 +84,21 @@ class AdminController{
         await adminService.changeLeaveLimit (type,paygrade,leavecount,reset);
         res.json();
     }
+    static async assignRole(req,res){
+        const adminService = new AdminService(db);
+        const {id,
+            role
+            } = req.body;
+            await adminService.assignRole(id,role);
+      }
+    static async deleteAssignedRole(req,res){
+        const adminService=new AdminService(db);
+        const {id,
+            role
+            } = req.body;
+            await adminService.deleteAssignedRole(id,role);
+    }
+    
 }
 
 module.exports = AdminController;
