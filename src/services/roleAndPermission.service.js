@@ -8,18 +8,26 @@ class RoleAndPermissionService {
     constructor(db) {
       this.db = db;
     }
-    async createRole(role,permission){
+     async createRole(role){
         //TODO implement.
-
+        const roleRepo=new roleRepository(this.db);
+        roleRepo.create({
+          role
+        })
     }
-    async getPermissions(){
+     async getPermissions(){
         const permissionRepo=new permissionRepository(this.db);
         return await permissionRepo.getPermissions();
     }
-    async getPermissionsForSuperviser(role){
+     async getPermissionsForSuperviser(role){
         const roleRepo=new roleRepository(this.db);
         return await roleRepo.getPermissionsForRole(role);
     }
-    
+  
+     async getRoles(){
+      const roleRepo=new roleRepository(this.db);
+      roleRepo.table="role";
+        return (await roleRepo.getAll()).map(x=>x.role);
+    }
 }
 module.exports=RoleAndPermissionService;   

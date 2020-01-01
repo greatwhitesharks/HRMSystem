@@ -2,7 +2,7 @@ const EmployeeAccountService =
   require('../../services/employeeAccount.service');
 const db = require('../../db');
 const bcrypt = require('bcrypt');
-
+require('dotenv').config();
 /**
  *
  */
@@ -18,12 +18,12 @@ class AccountController {
       email,
       password,
     } = req.body;
-
+    console.log(id, email, password)
     const accountService = new EmployeeAccountService(db);
     accountService.create(
         id,
         email,
-        bcrypt.hashSync(password, process.env.SALT_ROUNDS),
+        bcrypt.hashSync(password, process.env.SALT_ROUNDS||10),
     ).then(() => res.json({id, email})).catch(() => {
       res.json({error: 'error'});
     },

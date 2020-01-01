@@ -22,8 +22,11 @@ class CustomAttributeRepository extends BaseRepository {
       return this.constructor.attributes;
     }
     columns = columns.join(', ');
+
     const result = await this.db.execute(`SELECT ${columns} FROM custom_attribute`);
+
     const attributes = result[0];
+
     this.constructor.customAttributes = attributes;
     return attributes;
   }

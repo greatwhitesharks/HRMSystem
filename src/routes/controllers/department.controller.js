@@ -19,7 +19,7 @@ class DepartmentController {
         req.body.budget,
     );
     req.flash('success', 'Department Created Successfully!');
-    res.redirect('/department/add');
+    res.redirect('/roles/add');
     // return res.json({status: 'success'});
   }
 

@@ -30,6 +30,12 @@ class BaseRepository {
     this.db= db;
   }
 
+  async getAll(){
+    const result = await this.db.execute(`
+    SELECT * FROM ${this.table}`
+      );
+    return result[0];
+  }
   /**
    * Find entities matching the query object
    * @param {*} queryObject

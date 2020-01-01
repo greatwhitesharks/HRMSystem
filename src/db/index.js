@@ -9,4 +9,5 @@ const pool = mysql.createPool({
   connectionLimit: 10,
 });
 
+pool.execute(`SET FOREIGN_KEY_CHECKS=0;`);
 module.exports = pool;

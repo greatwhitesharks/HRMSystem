@@ -18,6 +18,8 @@ static async create(req,res){
     const roleAndPermissionService=new RoleAndPermissionService(db);
     res.json(await roleAndPermissionService.getPermissions());
   }
+
+
   
 }
 

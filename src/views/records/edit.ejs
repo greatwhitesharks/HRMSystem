@@ -481,6 +481,9 @@ fix switch
     dependent: [],
   };
 
+
+  window.deleteDepQueue= [];
+  window.deleteEmQueue= [];
   window.selectedEmergency = null;
 
   $(function () {
@@ -529,7 +532,7 @@ for (var pair of employmentData.entries()) {
     formData.set(pair[0], pair[1]);
 }
   axios.post('/record/create', formData).then(response =>{
-
+    // if depQueIsnt empty post
     axios.post('/record/dependents/add/'+ response.data.id, window.employeeData.dependent).then(response=>alert('Done!'));
   if ($('#accSwitch').is(':checked')){
     let accoutFrmData = new FormData(document.querySelector('#account-form'));
@@ -544,6 +547,8 @@ var json = JSON.stringify(object);
 
     // Post dep info
 
+  
+
   }
 });
 
@@ -556,7 +561,7 @@ var json = JSON.stringify(object);
       maxYear: parseInt(moment().subtract(18, 'y').format('YYYY'), 10),
       // isInvalidDate: (date) => (moment().diff(date,'years') <= 0),
     });
-    $('.select2bs4').select2({ theme: 'bootstrap4' });
+
 
     $('#modal-emergency').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget) // Button that triggered the modal
@@ -709,6 +714,13 @@ var json = JSON.stringify(object);
     // Delete html
     const el = $(`#${type}-${index}`).remove();
     // Delete object
+    if(window.employeeData[type][index].id){
+      if(type=='dependent'){
+        window.deleteDepQueue.push(window.employeeData[type][index])
+      }else{
+        window.deleteEmQueue.push(window.employeeData[type][index])
+      }
+    }
     window.employeeData[`${type}`].splice(index, 1);
     event.preventDefault();
   }

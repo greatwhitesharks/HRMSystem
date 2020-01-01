@@ -5,6 +5,8 @@ const CustomAttributeService =
 const AddressRepository = require('../../repositories/address.repository');
 const {camelCase} = require('lodash');
 const DependentService = require('../../services/dependent.service');
+const path = require('path');
+
 /**
  *
  */
@@ -29,29 +31,30 @@ class RecordController {
         paygrade,
         supervisorId,
         birthday,
-        photo,
-        salary,
         departmentId,
         sex,
       } = req.body;
+
       // Extract custom attributes from request
       const attribService = new CustomAttributeService(db);
       let attributes = await attribService.getAttributes(['name']);
       attributes = attributes.map((e) => camelCase(e.name));
-
+      console.log(req.file);
+      let photo = process.env.APP_URL || 'http://localhost:3000' + '/upload/'+req.file.filename;
+      let salary = '';
       const custom = {};
 
       for (const attribute of attributes) {
-        custom[attribute] = req.body[attribute];
+        custom[attribute] = req.body[attribute] || null;
       }
       // Create record
       const recordService = new EmployeeRecordService(db);
-
+ 
       const record = await recordService.create({
         firstName,
         middleName,
         lastName,
-        maritalStatus,
+        maritalStatus: maritalStatus || 'single',
         employmentType,
         jobTitle,
         paygrade,
@@ -60,10 +63,11 @@ class RecordController {
         photo,
         salary,
         departmentId,
-        sex,
+        sex: (sex || 'male'),
       },
       custom,
       );
+
 
       const addressRepo = new AddressRepository(db);
       // Code for a single address
@@ -75,6 +79,11 @@ class RecordController {
         country,
       } = req.body;
 
+      console.log({line1,
+        line2,
+        city,
+        region,
+        country});
       const address = {
         line1,
         line2,
@@ -87,8 +96,7 @@ class RecordController {
       await addressRepo.addAddressToEmployee(addressId, record.id);
 
       return record;
-    })()
-        .then((record) => res.json({id: record.id}))
+    })() .then((record) => res.json({id: record.id}))
         .catch((e)=>res.json({error: e}));
   }
 //this is a procedeural implementation to auto  delete account when record employment type changed to retired/etc...
@@ -106,16 +114,18 @@ class RecordController {
    */
   static async saveDependentInfo(req, res, next) {
     //  Code to add dependent information
-    if (req.body.dependents) {
+  
+    if (req.body) {
       const dependents = [];
-      for (const dependent of req.body.dependents) {
+      for (const dependent of req.body) {
         dependents.push({
+          id: dependent.id || null,
           firstName: dependent.firstName,
           middleName: dependent.middleName || '',
           lastName: dependent.lastName,
           birthdate: dependent.birthday,
           relation: dependent.relation,
-          employeeRecordId: record.id,
+          employeeRecordId: req.params.id,
         });
       }
       const dependentService = new DependentService(db);
