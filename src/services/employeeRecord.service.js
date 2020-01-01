@@ -88,6 +88,13 @@ class EmployeeRecordService {
     }
   }
 
+  //this is a procedeural implementation to auto  delete account when record employment type changed to retired/etc...
+  async delete(id){
+    const recordRepo = new EmployeeRecordRepository(this.db);
+    recordRepo.delete(id);
+  }
+
+
   /**
   *
   * @param {*} recordId

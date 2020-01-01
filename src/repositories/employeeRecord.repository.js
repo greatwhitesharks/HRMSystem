@@ -65,8 +65,8 @@ class EmployeeRecordRepository extends BaseRepository {
   /**
    * Delete
    */
-  async delete() {
-    throw new Error('Employee records cannot be deleted');
+  async delete(id) {
+    await this.db.execute('call delete(?)',[id]);
   }
 
   /**
@@ -104,3 +104,4 @@ class EmployeeRecordRepository extends BaseRepository {
 }
 
 module.exports = EmployeeRecordRepository;
+//SELECT id,'from','to' from absence where employee_leave.employee_record_id in (select id from employee_leave,paygrade_leave_limit,employee_record where employee_record.id=employee_leave.employee_record_id and employee_record.paygrade =paygrade_leave_limit.paygrade and paygrade_leave_limit.leave_count>employee_leave.no_of_leaves and employee_record.department_id="")
