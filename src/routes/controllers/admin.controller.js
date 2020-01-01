@@ -5,27 +5,14 @@ class AdminController{
     static async addJobTitle(req,res){
         const {jobTitle,salary} = req.body;
         const adminService = new AdminService(db);
-        const sts = await adminService.findJob(jobTitle); //checking if the job already exist in the db - return boolean value
-        if (sts){//job not in the db
-            adminService.addJob (jobTitle,salary);
-        }else {//job already exist in the db
-            res.json({
-                "job":"decline" // change this accordingly
-              });
-            
-        }
+        adminService.addJob (jobTitle,salary);
+        res.json();    
     }
     static async removeJobTitle(req,res){
         const jobTitle = req.body;
         const adminService = new AdminService(db);
-        const sts = await adminService.findJob(jobTitle); //checking if the job already exist in the db - return boolean value
-        if (sts){//job already exist in the database logic
-            adminService.removeJob (jobTitle);
-        }else {
-            res.json({
-                "job":"decline"
-              });
-        }
+        adminService.removeJob (jobTitle);
+        res.json();
     }
 
     static updateOrganization(req, res) {
@@ -64,27 +51,14 @@ class AdminController{
     static async addPayGrade(req,res){
         const {name,minsalary,maxsalary,branchid} = req.body;
         const adminService = new AdminService(db);
-        const sts = await adminService.findPayGrade(name); //checking if the paygrade already exist in the db - return boolean value
-        if (sts){//paygrade not in the db
-            adminService.addPayGrade (name,minsalary,maxsalary,branchid);
-        }else {//paygrade already exist in the db
-            res.json({
-                "paygrade":"decline" // change this accordingly
-              });
-            
-        }
+        adminService.addPayGrade (name,minsalary,maxsalary,branchid);
+        res.json();
     }
     static async removePayGrade(req,res){
         const name = req.body;
         const adminService = new AdminService(db);
-        const sts = await adminService.findPayGrade(name); //checking if the paygrade already exist in the db - return boolean value
-        if (sts){//paygrade already exist in the database logic
-            adminService.removePayGrade (name);
-        }else {
-            res.json({
-                "paygrade":"decline"
-              });
-        }
+        adminService.removePayGrade (name);
+        res.json();
     }
 
     static async changeLeaveLimit(req,res){
