@@ -29,6 +29,8 @@ class OrganizationRepository extends BaseRepository {
       object.root_branch_id,
     ]);
   }
+
+  
 }
 
 module.exports = EmploymentTypeRepository;

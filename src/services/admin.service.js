@@ -48,7 +48,15 @@ class AdminService {
 
     return new Organization(organization);
   }
-  
+
+  async viewOrganization() {
+    
+    const orgRepo = new OrganizationRepository(this.db);
+
+    const organization = await orgRepo.view();
+
+    return new Organization(organization);
+  }
 }
 
 module.exports = AdminService;
