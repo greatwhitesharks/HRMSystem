@@ -3,11 +3,18 @@ const db = require('../../db');
 
 class AdminController{
     static async addJobTitle(req,res){
-        const {jobTitle,salary} = req.body;
         const adminService = new AdminService(db);
-        adminService.addJob (jobTitle,salary);
-        res.json();    
+        console.log(req.body);
+        
+        await adminService.addJobTitle(
+            req.body.jobTitle,
+            req.body.jobSalary,
+        );
+        req.flash('sucess','Job Title Created Successfully')
+        res.redirect('/job/add');   
     }
+
+    
     static async removeJobTitle(req,res){
         const jobTitle = req.body;
         const adminService = new AdminService(db);

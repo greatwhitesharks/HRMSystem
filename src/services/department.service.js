@@ -26,7 +26,7 @@ class DepartmentService {
     const repository = new BaseRepository(this.db, 'department');
     await repository.save({
       name,
-      branchId,
+      branch_id:branchId,
       budget,
     });
   }
