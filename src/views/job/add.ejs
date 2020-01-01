@@ -1,0 +1,41 @@
+<%- contentFor('body') %>
+
+<div class="row">
+  <div class="col-md">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">Job</h3>
+
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+            <i class="fas fa-minus"></i></button>
+        </div>
+      </div>
+      <div class="card-body">
+        <form action="/job/addjob" method="post">
+        <div class="form-group">
+          <label for="inputName">Job Title</label>
+          <input name="jobTitle" ype="text" id="inputName" value="<%=job.title || ''%>" required="required" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="inputName">Salary</label>
+          <input name="salary" type="text" id="inputName" value="<%=job.salary || ''%>"  required="required" class="form-control">
+        </div>
+
+
+        <div class="form-group">
+          <input type="submit" value="Create Job Title" class="btn btn-success float-right">
+        </div>
+        </form>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+</div>
+
+<%-contentFor('styles')%>
+
+
+<%-contentFor('scripts')%>
