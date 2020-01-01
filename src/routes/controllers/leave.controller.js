@@ -31,7 +31,7 @@ class LeaveController {
      const  leaveService= new LeaveService(db);
       var supervisorId=2;//for test purpses
       var leaveInfo=await leaveService.getLeaveInfoAll(supervisorId);
-      res,json();
+      res,json(leaveInfo);
   }
 static async getLeaveInfo(req,res){
 // TODO implement using seesion employeeRecordId

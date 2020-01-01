@@ -32,6 +32,24 @@ class AbsenceRepository extends BaseRepository {
       return leaveInfo;
      });
   }
+  async getLeaveInfoAll(departmentId,branchId){
+    const sql="select first_name,middle_name,last_name,`from`,`to`,type,`status`" +`from ${this.table} natural join employee_record where department_id=? and branch_id=? and `+"`from`>=CURDATE()";
+    return await this.db.execute(sql,[departmentId,branchId]).then(async (result)=>{
+     var leaveInfo=[];
+     Object.keys(result[0]).forEach(async (key)=> {
+       var entry={};
+       entry['first_name']=result[0][key].fiest_name;
+       entry['middle_name']=result[0][key].middle_name;
+       entry['last_name']=result[0][key].last_name;
+       entry['from']=result[0][key].from;
+       entry['to']=result[0][key].to;
+       entry['type']=result[0][key].type;
+       entry['status']=result[0][key].status;
+       leaveInfo.push(entry);
+ }); 
+     return leaveInfo;
+    });
+  }
   async isAvailableLeave(id,type){
     const sql=`select leave_no from taken_leaves where employee_record_id=? and type=?`;
     return await this.db.execute(sql,[id,type]).then(async (result)=>{

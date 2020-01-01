@@ -90,9 +90,9 @@ class AbsenceService {
     return (employee.supervisorId === requesterId);
   }
 
-  async getLeaveInfoAll(supervisorId){
+  async getLeaveInfoAll(superviserId){
   const absenceRepo = new AbsenceRepository(this.db);
-      return await leveInfoAll;
+  return await leveInfoAll(departmentId,branchId);
   }
   async getLeaveInfo(employeeRecordId){
     const absenceRepo = new AbsenceRepository(this.db);
