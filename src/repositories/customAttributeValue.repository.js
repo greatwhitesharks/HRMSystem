@@ -33,9 +33,9 @@ class CustomAttributeValueRepository extends BaseRepository {
     const flat = [];
 
     const attributeRepo = new CustomAttributeRepository(this.db);
-    const attributes = await attributeRepo.getAttributes();
+    const attributes = await attributeRepo.getAttributes(['names']);
     for (const attribute of attributes) {
-      flat.push(id, attribute, object[camelCase(attribute)]);
+      flat.push(id, attribute, object[camelCase(attribute.name)]);
     }
     (query);
     await this.db.execute(query, flat);

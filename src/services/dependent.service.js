@@ -33,7 +33,23 @@ class DependentService {
     return dependents;
   }
 
+  /**
+   *
+   * @param {*} ids
+   */
+  async deleteByIds(ids) {
+    const dependentRepo = new DependentRepository(this.db);
+    await dependentRepo.deleteByIds(ids);
+  }
 
+  /**
+   *
+   * @param {*} dependents
+   */
+  async saveMany(dependents) {
+    const dependentRepo = new DependentRepository(this.db);
+    await dependentRepo.saveMany(dependents);
+  }
 }
 
 module.exports = DependentService;

@@ -13,13 +13,13 @@ class DependentRepository extends BaseRepository {
   constructor(db) {
     super(db, 'dependent_information');
   }
-  
+
   /**
    *
    * @param {Dependent[]} dependents
    */
-  async createMany(dependents) {
-    const sql = sqlHelper.prepareForInsert(this.table,
+  async saveMany(dependents) {
+    const sql = sqlHelper.prepareForSave(this.table,
         Object.keys(dependents[0]).map((key) =>{
           return snakeCase(key);
         }),
@@ -32,6 +32,20 @@ class DependentRepository extends BaseRepository {
     }
 
     return await this.db.execute(sql, flat);
+  }
+
+  /**
+   *
+   * @param {Number[]} ids
+   */
+  async deleteByIds(ids) {
+
+    const values = ids.foreach((id) => {
+      return `id = ?`;
+    }).join(' OR ');
+
+    const sql = `DELETE FROM ${this.table} WHERE ${values}`;
+    return await this.db.execute(sql, ids);
   }
 }
 
