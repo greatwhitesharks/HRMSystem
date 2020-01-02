@@ -138,8 +138,6 @@ router.get('/empType/add', (req, res) => {
   });
 });
 
-=======
-
 /**
  * Roles
  *
