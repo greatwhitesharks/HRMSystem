@@ -52,8 +52,8 @@ class RecordController {
         departmentId,
         sex,
       } = req.body;
-
-      // Extract custom attributes from request
+     
+    // Extract custom attributes from request
       const attribService = new CustomAttributeService(db);
       let attributes = await attribService.getAttributes(['name']);
       attributes = attributes.map((e) => camelCase(e.name));
@@ -140,13 +140,15 @@ class RecordController {
       const attribService = new CustomAttributeService(db);
       let attributes = await attribService.getAttributes(['name']);
       attributes = attributes.map((e) => camelCase(e.name));
-      console.log(req.file);
+   
      
       const custom = {};
 
       for (const attribute of attributes) {
         custom[attribute] = req.body[attribute] || null;
       }
+
+        console.log(supervisorId.split(' '));
       // Create record
       const recordService = new EmployeeRecordService(db);
       let rec = {
@@ -163,7 +165,7 @@ class RecordController {
         departmentId,
 
       };
-
+ 
           if(req.body.id){
             rec.id = req.body.id;
           }
@@ -219,7 +221,7 @@ class RecordController {
   static async saveDependentInfo(req, res, next) {
     //  Code to add dependent information
   
-    if (req.body) {
+    if (req.body && req.body !== {} ) {
       const dependents = [];
       for (const dependent of req.body) {
         dependents.push({

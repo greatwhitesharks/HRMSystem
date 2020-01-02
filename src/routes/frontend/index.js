@@ -118,7 +118,7 @@ router.get('/add-employee',
 
       let employees = await(new (require('../../db/common/baseRepository'))(db, 'employee_record')).getAll();
       employees = employees.map((x)=>{
-        return {id: x.type, lbl: `${x.id} - ${x.first_name} ${x.last_name}`};
+        return {id: x.id, lbl: `${x.id} - ${x.first_name} ${x.last_name}`};
       });
 
       console.log(jobTitles);

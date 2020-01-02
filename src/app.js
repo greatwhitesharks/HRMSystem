@@ -112,9 +112,10 @@ app.use((req, res, next)=> {
   next();
 });
 
-app.use((req, res)=>{
-  // req.locals.roles = (req.user) ? req.user.roles : [];
-  // req.locals.perms =  (req.user) ? req.user.perms : [];
+app.use((req, res,next)=>{
+
+ //console.log(req.locals)
+  next();
 })
 
 app.use('/', indexRouter);
