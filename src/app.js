@@ -26,6 +26,9 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(async function(email, done) {
   const accountService = new AccountService(db);
   const user = await accountService.getRecordAccountByEmail(email);
+  const {roles, perms} = await accountService.getPermissions(user.record.id, user.record.jobTitle);
+          user.roles = roles;
+          user.perms = perms;
   done(null, user);
 });
 
@@ -33,13 +36,14 @@ passport.use(new LocalStrategy(function(email, password, done) {
   const accountService = new AccountService(db);
   accountService.getRecordAccountByEmail(email).then((object)=>{
     if (object.account) {
-      bcrypt.compare(password, object.account.password, (err, correct) => {
+      bcrypt.compare(password, object.account.password, async (err, correct) => {
         if (err) {
           message = [{'msg': 'Incorrect Password/Email'}];
 
           return done(null, false, {message});
         }
         if (correct) {
+          
           return done(null, object);
         }
       });

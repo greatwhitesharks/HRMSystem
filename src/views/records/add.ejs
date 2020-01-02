@@ -172,37 +172,7 @@ fix switch
     <!-- /.card -->
   </div>
   <% } %>
-  <div class="col-md-6">
-    <div class="card card-secondary">
-      <div class="card-header">
-        <h3 class="card-title">Emergency Contact Information</h3>
 
-        <div class="card-tools">
-          <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-            <i class="fas fa-minus"></i></button>
-        </div>
-      </div>
-      <div class="card-body">
-        <button type="button" class="btn btn-block btn-outline-success" data-toggle="modal"
-          data-target="#modal-emergency">
-          <i class="fas fa-plus"></i> Add</button>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Contact Number</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="emergency-table-body">
-
-          </tbody>
-        </table>
-      </div>
-      <!-- /.card-body -->
-    </div>
-    <!-- /.card -->
-  </div>
 </div>
 <div class="row">
   <div class="col-md-6">
@@ -259,39 +229,30 @@ fix switch
         <div class="form-group">
           <label>Department</label>
           <select name="departmentId" required class="form-control select2bs4" style="width: 100%;">
-            <option value="0" selected="selected">Alabama</option>
-            <option>Alaska</option>
-            <option>California</option>
-            <option>Delaware</option>
-            <option>Tennessee</option>
-            <option>Texas</option>
-            <option>Washington</option>
+           <% for (const p of departments) { %>
+            <option value="<%=p.id%>" selected="selected"><%=p.lbl%></option>
+
+            <% } %>
           </select>
         </div>
 
         <div class="form-group">
-          <label>Department</label>
-          <select name="supervisorId" required class="form-control select2bs4" style="width: 100%;">
-            <option value="1" selected="selected">Alabama</option>
-            <option>Alaska</option>
-            <option>California</option>
-            <option>Delaware</option>
-            <option>Tennessee</option>
-            <option>Texas</option>
-            <option>Washington</option>
+          <label>Supervisor</label>
+          <select name="supervisorId" class="form-control select2bs4" style="width: 100%;">
+            <% for (const p of employees) { %>
+              <option value="<%=p.id%>" selected="selected"><%=p.lbl%></option>
+  
+              <% } %>
           </select>
         </div>
 
         <div class="form-group">
           <label>Job Title</label>
           <select name="jobTitle" required class="form-control select2bs4" style="width: 100%;">
-            <option selected="selected">Alabama</option>
-            <option>Alaska</option>
-            <option>California</option>
-            <option>Delaware</option>
-            <option>Tennessee</option>
-            <option>Texas</option>
-            <option>Washington</option>
+            <% for (const p of jobTitles) { %>
+              <option value="<%=p.id%>" selected="selected"><%=p.lbl%></option>
+  
+              <% } %>
           </select>
         </div>
 
@@ -299,13 +260,10 @@ fix switch
         <div class="form-group">
           <label>Paygrade</label>
           <select name="paygrade" required class="form-control select2bs4" style="width: 100%;">
-            <option selected="selected">Alabama</option>
-            <option>Alaska</option>
-            <option>California</option>
-            <option>Delaware</option>
-            <option>Tennessee</option>
-            <option>Texas</option>
-            <option>Washington</option>
+            <% for (const p of paygrades) { %>
+              <option value="<%=p.id%>" selected="selected"><%=p.lbl%></option>
+  
+              <% } %>
           </select>
         </div>
 
@@ -313,13 +271,10 @@ fix switch
         <div class="form-group">
           <label>Employement Type</label>
           <select name="employmentType" required class="form-control select2bs4" style="width: 100%;">
-            <option selected="selected">Alabama</option>
-            <option>Alaska</option>
-            <option>California</option>
-            <option>Delaware</option>
-            <option>Tennessee</option>
-            <option>Texas</option>
-            <option>Washington</option>
+            <% for (const p of empTypes) { %>
+              <option value="<%=p.id%>" selected="selected"><%=p.lbl%></option>
+  
+              <% } %>
           </select>
         </div>
 

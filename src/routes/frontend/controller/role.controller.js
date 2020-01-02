@@ -15,12 +15,12 @@ class DepartmentController {
      */
   static async create(req, res, next) {
     const service = new RoleService(db);
-    await service.create(
+    await service.createRole(
         req.body.roleName,
     );
     req.flash('success', 'Role Created Successfully!');
     res.redirect('/roles/add');
-    // return res.json({status: 'success'});
+    // // return res.json({status: 'success'});
   }
 
   /**
