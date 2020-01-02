@@ -5,5 +5,5 @@ const router = express.Router();
 router.post('/supervise', LeaveController.superviseLeave);
 router.post('/getLeaveInfoAll',LeaveController.getLeaveInfoAll);
 router.post('/getLeaveInfo',LeaveController.getLeaveInfo);
-router.post('/applyLeave',LeaveController.applyLeave);
+//router.post('/applyLeave',LeaveController.applyLeave);
 module.exports = router;

@@ -72,13 +72,13 @@ router.get('/leave/viewAll', async (req, res) => {
 
 router.post('/leave/apply', async (req, res) => {
   const leaveService= new LeaveService(db);
-  var id=1;//for test purpses
+  var aid=1;//for test purpses
   const {
-    type,
-    from,
-    to,
-    comment}=req.body;
-    var stmt=await leaveService.applyLeave(id,type,from,to,comment);
+    atype,
+    afrom,
+    ato,
+    acomment}=req.body;
+    var stmt=await leaveService.applyLeave(aid,atype,afrom,ato,acomment);
     console.log(stmt);
     
 }); 
