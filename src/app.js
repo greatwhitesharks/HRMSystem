@@ -46,7 +46,6 @@ passport.use(new LocalStrategy(function(email, password, done) {
           
           return done(null, object);
         }
-      });
     } else {
       message = [{'msg': 'Incorrect Password/Email'}];
       return done(null, false, {message});
@@ -120,8 +119,7 @@ app.use('/job', jobRouter);
 app.use('/paygrade', payGradeRouter);
 app.use('/absence', leaveRouter);
 app.use('/department', departmentRouter);
-app.use('/addEmpType', empTypeRouter);
-app.use('/removeEmpType', empTypeRouter);
+app.use('/empType', empTypeRouter);
 app.use('/organization', organizationRouter);
 app.use('/roleAndPermission',roleAndPermission);
 

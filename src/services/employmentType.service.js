@@ -1,6 +1,8 @@
 /**
  * Employment Type Service
  */
+const BaseRepository =
+  require('../db/common/baseRepository');
 const EmploymentTypeRepository =
   require('../repositories/employmentType.repository');
 const EmploymentType = require('../models/employmentType.model');
@@ -22,26 +24,22 @@ class EmploymentTypeService {
    * @param {*} data
    * @param {*} custom
    */
-  async create(data, custom) {
-    // TODO: Refactor this and getId
-    // Insert employee record
-    const typeRepo = new EmploymentTypeRepository(this.db);
 
-    data.type = (await typeRepo.save(data))[0].insertType;
-
-    const empType = {};
-
-    Object.assign(empType, data);
-
-    return new EmploymentType(empType);
-  }
+  async create(
+    type,
+) {
+  const empRepo = new BaseRepository(this.db,'employement_type');
+  await empRepo.save({
+    type
+  });
+}
 
   async delete(data, custom) {
     // TODO: Refactor this and getId
     // Insert employee record
     const typeRepo = new EmploymentTypeRepository(this.db);
 
-    data.type = (await typeRepo.delete(data)); //Please check this line
+    typeRepo.delete(data); //Please check this line
   }
 
 }

@@ -1,0 +1,62 @@
+<%- contentFor('body') %>
+<form action="/leave/apply" method="post">
+<div class="row">
+  <div class="col-md  ">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">Leave Form</h3>
+
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+            <i class="fas fa-minus"></i></button>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="form-group">
+          <label>From:</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                    <input name="from" type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                  </div>
+        </div>
+
+        <div class="form-group">
+          <label>To:</label>
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+            </div>
+            <input name="to" type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Custom Select</label>
+                        <select class="custom-select" name="type">
+                          <option>Annual</option>
+                          <option>Maternity</option>
+                          <option>Casual</option>
+                          <option>Nopay</option>
+                        </select>
+        </div>
+        <div class="form-group">
+          <label for="inputName">Comment</label>
+          <input type="text" name="comment" id="inputName" value=""  required="required" class="form-control">
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Apply Leave" class="btn btn-success float-right">
+        </div>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+</div>
+</form>
+<%-contentFor('styles')%>
+
+
+<%-contentFor('scripts')%>

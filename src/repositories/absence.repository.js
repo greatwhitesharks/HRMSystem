@@ -1,4 +1,5 @@
 const BaseRepository = require('../db/common/baseRepository');
+const moment=require("moment");
 
 /**
  * Absence Repository
@@ -23,8 +24,8 @@ class AbsenceRepository extends BaseRepository {
       var leaveInfo=[];
       Object.keys(result[0]).forEach(async (key)=> {
         var entry={};
-        entry['from']=result[0][key].from;
-        entry['to']=result[0][key].to;
+        entry['from']=moment(result[0][key].from).format("MMM Do YY");
+        entry['to']=moment(result[0][key].to).format("MMM Do YY");
         entry['type']=result[0][key].type;
         entry['status']=result[0][key].status;
         leaveInfo.push(entry);
@@ -41,8 +42,8 @@ class AbsenceRepository extends BaseRepository {
        entry['id']=result[0][key].aid;
        entry['fullName']=result[0][key].first_name+ " " +result[0][key].last_name;
        entry['title']=result[0][key].job_title;
-       entry['from']=result[0][key].from;
-       entry['to']=result[0][key].to;
+       entry['from']=moment(result[0][key].from).format("MMM Do YY");
+       entry['to']=moment(result[0][key].to).format("MMM Do YY");
        entry['type']=result[0][key].type;
        entry['comment']=result[0][key].comment;
        leaveInfoAll.push(entry);
@@ -64,6 +65,9 @@ class AbsenceRepository extends BaseRepository {
     });
   }
   async applyLeave(id,type,from,to,comment){
+    var to =moment().format("YYYY-MM-DD");
+    console.log(to);
+    var from=moment().format("YYY-MM-DD");
     const defaultStatus="pending";
     const sql="insert into "+`${this.table}`+"(employee_record_id,`from`,`to`,type,`status`,`comment`) values(?,?,?,?,?,?)";
     try{
