@@ -32,7 +32,8 @@ passport.deserializeUser(async function(email, done) {
   done(null, user);
 });
 
-passport.use(new LocalStrategy(function(email, password, done) {
+passport.use(
+  new LocalStrategy(function(email, password, done) {
   const accountService = new AccountService(db);
   accountService.getRecordAccountByEmail(email).then((object)=>{
     if (object.account) {
@@ -46,16 +47,18 @@ passport.use(new LocalStrategy(function(email, password, done) {
           
           return done(null, object);
         }
+      });
     } else {
       message = [{'msg': 'Incorrect Password/Email'}];
       return done(null, false, {message});
     }
-  });
-}));
+
+}); }));
 
 
 // Routes for the "api" endpoints
 // Todo: Bundle these routes to a single file
+const frontendRouter = require('./routes/frontend');
 const indexRouter = require('./routes/index');
 const recordRouter = require('./routes/record');
 const accountRouter = require('./routes/account');
@@ -70,7 +73,6 @@ const roleAndPermission=require('./routes/roleAndPermission');
 
 
 // Routes for the frontend
-const frontendRouter = require('./routes/frontend');
 
 const app = express();
 
