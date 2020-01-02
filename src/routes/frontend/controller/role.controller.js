@@ -51,7 +51,7 @@ class DepartmentController {
   static async deleteUser(req, res){
     const repo = new Repository(db, 'employee_account_has_role');
     await repo.delete({
-      employee_record_id: req.body.user,
+      employee_record_id: req.params.user,
       role: req.params.role
     });
     req.flash('success', 'User Removed Successfully!');
@@ -77,11 +77,13 @@ class DepartmentController {
   }
   static async deletePermission(req, res){
     const repo = new Repository(db, 'role_has_permission');
-    const {entity, action, group} = req.body.permission.split('_');
+   const entity = req.params.entity;
+   const action = req.params.action;
+   const group = req.params.group;
     await repo.delete({
       entity,
       action,
-      group,
+      'group':group,
       role: req.params.role
     });
 
@@ -105,8 +107,8 @@ class DepartmentController {
   }
   static async deleteJobTitle(req, res){
     const repo = new Repository(db, 'job_title_has_role');
-    await repo.save({
-      job_title: req.body.jobTitle,
+    await repo.delete({
+      job_title: req.params.job,
       role: req.params.role,
     });
 

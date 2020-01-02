@@ -62,7 +62,7 @@ const leaveRouter = require('./routes/leave');
 const departmentRouter = require('./routes/department');
 const empTypeRouter = require('./routes/empType');
 const organizationRouter =require('./routes/organization');
-
+const bcrypt = require('bcrypt');
 const roleAndPermission=require('./routes/roleAndPermission');
 
 

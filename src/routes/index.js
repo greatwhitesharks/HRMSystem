@@ -8,13 +8,13 @@ router.post('/roles/add', roleController.create);
 router.post('/roles/delete', roleController.delete);
 
 router.post('/roles/:role/add/permission', roleController.addPermission);
-router.post('/roles/:role/delete/permission', roleController.deletePermission);
+router.get('/roles/:role/delete/permission/:entity/:action/:group', roleController.deletePermission);
 
 router.post('/roles/:role/add/job', roleController.addJobTitle);
-router.post('/roles/:role/delete/job', roleController.deleteJobTitle);
+router.get('/roles/:role/delete/job/:job', roleController.deleteJobTitle);
 
 router.post('/roles/:role/add/user', roleController.addUser);
-router.post('/roles/:role/delete/user', roleController.deleteUser);
+router.get('/roles/:role/delete/user/:user', roleController.deleteUser);
 
 
 router.post('/login', passport.authenticate('local',

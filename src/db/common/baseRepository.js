@@ -89,7 +89,7 @@ class BaseRepository {
   async delete(object) {
     const tuples = [];
     for (const key of Object.keys(object)) {
-      tuples.push(`${snakeCase(key)} = ?`);
+      tuples.push(`\`${snakeCase(key)}\` = ?`);
     }
     const sql = `DELETE FROM ${this.table} WHERE ${tuples.join(' AND ')}`;
     return await this.db.execute(sql, [...Object.values(object)]);

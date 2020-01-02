@@ -248,12 +248,12 @@ fix switch
       </div>
       <div class="card-body">
         <form id="employment-info">
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label>Branch</label>
           <select disabled class="form-control select2bs4" style="width: 100%;">
             <option selected="selected">Default</option>
           </select>
-        </div>
+        </div> -->
 
 
         <div class="form-group">
@@ -513,7 +513,7 @@ $('#createRecord').click(function(){
    valid = valid && $('#account-form').valid();
   }
 
-  if(true || valid){
+  if(valid){
     let formData = new FormData(document.querySelector('#personal-info'));
     console.log(document.querySelector('#personal-info'));
     //  formData.append()

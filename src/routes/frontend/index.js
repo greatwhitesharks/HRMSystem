@@ -85,6 +85,18 @@ router.get('/department/add', (req, res) => {
     department:{},
   });
 });
+
+router.get('/department/remove/:id', (req, res) => {
+  res.render('department/single', {
+    layout: 'layouts/main',
+    title: 'Add Department',
+    department:{},
+  });
+
+  
+});
+
+
 /**
  * Employee By Properies (Department Name, PayGrade, JobTitle, Employment Type, Custom Attributes)
  * Leaves by  Properties
@@ -189,7 +201,7 @@ router.get('/roles/add', (req, res)=>{
   res.render('role/createRole', {
     layout: 'layouts/main',
     title: 'Add Role',
-  });
+  });reate
 });
 
 router.get('/roles/:role/remove', async (req, res)=>{
@@ -197,11 +209,48 @@ router.get('/roles/:role/remove', async (req, res)=>{
   res.redirect('/roles')
 });
 
-router.get('/roles/:id', (req, res)=>{
+router.get('/roles/:role',  async (req, res)=>{
+  const users = await (new RoleService(db)).getUsersInRole(req.params.role);
+  const perms = await (new RoleService(db)).getPermissionsInRole(req.params.role);
+  const jobs = await (new RoleService(db)).getJobsInRole(req.params.role);
+  console.log(jobs);
   res.render('role/single', {
     layout: 'layouts/main',
     title: 'Role',
-    role: {},
+    role: req.params.role,
+    users,
+    perms,
+    jobs,
   });
 });
+
+
+
+
+router.get('/custom-attribute/create', (req, res)=>{
+  res.render('custom/add', {
+    layout: 'layouts/main',
+    title: 'Create Attributte',
+    attribute: {}
+  });
+});
+
+
+router.post('/custom-attribute/create', (req, res)=>{
+  (new (require('../../services/customAttribute.service'))(db)).createAttribute(
+    req.body.attributeName,
+    req.body.attributeDefault,
+    'text',
+  );
+  req.flash('success','Success');
+  res.redirect('/custom-attribute/create');
+});
+
+
+// router.get('custom-attribute/all')
+
+// router.get('custom-attribute/delete')
+
+
+
 module.exports = router;
