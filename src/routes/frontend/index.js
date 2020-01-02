@@ -12,17 +12,19 @@ const isAdmin = (req, res, next) => {
   if (req.user.roles.includes('admin')) {
     return next();
   } else {
-    return res.status(404);
+    next()
+    // return res.status(404);
   }
 };
 
 const canDo = (perm) =>{
   const method = (req, res, next) => {
     console.log(req.user);
-    if (req.user.perms.includes(perm)) {
+    if (req.user.perms.includes(perm) || req.user.roles.includes('admin')) {
       return next();
     } else {
       res.status(404);
+      
       return res.end('No permission');
     }
   };
@@ -116,7 +118,7 @@ router.get('/add-employee',
 
       let employees = await(new (require('../../db/common/baseRepository'))(db, 'employee_record')).getAll();
       employees = employees.map((x)=>{
-        return {id: x.type, lbl: `${x.id} - ${x.first_name} ${x.last_name}`};
+        return {id: x.id, lbl: `${x.id} - ${x.first_name} ${x.last_name}`};
       });
 
       console.log(jobTitles);
@@ -175,6 +177,7 @@ router.get('/leave/approve/:id', ensureLoggedIn('/login'), async (req, res) => {
       leaveInfo,
     });
   });
+});
 
   router.post('/leave/apply', ensureLoggedIn('/'), async (req, res) => {
     const leaveService= new LeaveService(db);
@@ -253,11 +256,11 @@ router.get('/leave/approve/:id', ensureLoggedIn('/login'), async (req, res) => {
     res.json(req.user);
   });
 
-  router.get('/employee-reports/', reportController.generateEmployeeReport);
+  router.get('/employee-reports/', canDo('read_report_all'), reportController.generateEmployeeReport);
 
-  router.get('/leave-reports/', reportController.generateLeaveReport);
+  router.get('/leave-reports/', canDo('read_report_all'), reportController.generateLeaveReport);
 
-  router.get('/empType/add', ensureLoggedIn('/login'), isAdmin, (req, res) => {
+  router.get('/empType/add', /*ensureLoggedIn('/login'), isAdmin,*/ (req, res) => {
     res.render('empType/add', {
       layout: 'layouts/main',
       title: 'Add Employee Type',
@@ -290,7 +293,7 @@ router.get('/leave/approve/:id', ensureLoggedIn('/login'), async (req, res) => {
         lbl: _.startCase(`${x.id} - ${x.first_name} ${x.last_name}`),
       };
     });
-  });
+
 
   res.render('role/addUser', {
     layout: 'layouts/main',
@@ -298,7 +301,9 @@ router.get('/leave/approve/:id', ensureLoggedIn('/login'), async (req, res) => {
     users,
     role: req.params.role,
   });
-});
+
+
+  });
 
 router.get('/roles/:role/add/permission', ensureLoggedIn('/login'), isAdmin, async (req, res)=>{
   let permissions = await (new RoleService(db)).getPermissions();

@@ -41,12 +41,11 @@ class EmployeeAccountService {
 
     const accountRepo = new EmployeeAccountRepository(this.db);
 
-    await accountRepo.create({
-      id: employeeRecordId,
+    await accountRepo.save({
+      employee_record_id: employeeRecordId,
       email,
       password,
     });
-
     return new EmployeeAccount(
         employeeRecordId,
         email,

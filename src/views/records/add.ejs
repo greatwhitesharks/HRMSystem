@@ -230,7 +230,7 @@ fix switch
           <label>Department</label>
           <select name="departmentId" required class="form-control select2bs4" style="width: 100%;">
            <% for (const p of departments) { %>
-            <option value="<%=p.id%>" selected="selected"><%=p.lbl%></option>
+            <option value="<%=p.id%>"><%=p.lbl%></option>
 
             <% } %>
           </select>
@@ -240,7 +240,7 @@ fix switch
           <label>Supervisor</label>
           <select name="supervisorId" class="form-control select2bs4" style="width: 100%;">
             <% for (const p of employees) { %>
-              <option value="<%=p.id%>" selected="selected"><%=p.lbl%></option>
+              <option value="<%=p.id%>"><%=p.lbl%></option>
   
               <% } %>
           </select>
@@ -250,7 +250,7 @@ fix switch
           <label>Job Title</label>
           <select name="jobTitle" required class="form-control select2bs4" style="width: 100%;">
             <% for (const p of jobTitles) { %>
-              <option value="<%=p.id%>" selected="selected"><%=p.lbl%></option>
+              <option value="<%=p.id%>"><%=p.lbl%></option>
   
               <% } %>
           </select>
@@ -261,7 +261,7 @@ fix switch
           <label>Paygrade</label>
           <select name="paygrade" required class="form-control select2bs4" style="width: 100%;">
             <% for (const p of paygrades) { %>
-              <option value="<%=p.id%>" selected="selected"><%=p.lbl%></option>
+              <option value="<%=p.id%>"><%=p.lbl%></option>
   
               <% } %>
           </select>
@@ -272,7 +272,7 @@ fix switch
           <label>Employement Type</label>
           <select name="employmentType" required class="form-control select2bs4" style="width: 100%;">
             <% for (const p of empTypes) { %>
-              <option value="<%=p.id%>" selected="selected"><%=p.lbl%></option>
+              <option value="<%=p.id%>" ><%=p.lbl%></option>
   
               <% } %>
           </select>
@@ -484,8 +484,10 @@ for (var pair of employmentData.entries()) {
     formData.set(pair[0], pair[1]);
 }
   axios.post('/record/create', formData).then(response =>{
-
-    axios.post('/record/dependents/add/'+ response.data.id, window.employeeData.dependent).then(response=>alert('Done!'));
+    if(window.employeeData.dependent !=[]){
+    // axios.post('/record/dependents/add/'+ response.data.id, window.employeeData.dependent).then(response=>alert('Done!'));
+ 
+ }
   if ($('#accSwitch').is(':checked')){
     let accoutFrmData = new FormData(document.querySelector('#account-form'));
     console.log(response.id);

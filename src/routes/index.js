@@ -22,7 +22,6 @@ const canDo = (perm) =>{
   };
 }
 
-
 router.post('/roles/add', ensureLoggedIn('/login'), isAdmin, roleController.create);
 router.post('/roles/delete', ensureLoggedIn('/login'), isAdmin, roleController.delete);
 
