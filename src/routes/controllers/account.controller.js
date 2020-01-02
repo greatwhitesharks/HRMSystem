@@ -26,6 +26,7 @@ class AccountController {
         email,
         bcrypt.hashSync(password, process.env.SALT_ROUNDS||10),
     ).then(() => res.json({id, email})).catch(() => {
+      res.status(500);
       res.json({error: 'error'});
     },
     );

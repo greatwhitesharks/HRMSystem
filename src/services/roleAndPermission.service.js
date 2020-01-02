@@ -12,7 +12,8 @@ class RoleAndPermissionService {
      async createRole(role){
         //TODO implement.
         const roleRepo=new roleRepository(this.db);
-        roleRepo.create({
+        roleRepo.table='role';
+        roleRepo.save({
           role
         })
     }

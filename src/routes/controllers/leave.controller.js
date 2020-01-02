@@ -41,16 +41,12 @@ static async getLeaveInfo(req,res){
 }
 
 static async applyLeave(req,res){
-  // const {id,
-  //   type,
-  //   from,
-  //   to,
-  //   comment}=req.body;
-  var id=1; //text purpouses TODO delete after intergrate ui
-  var type="annual";
-  var from='2020-01-02';
-  var to='2020-01-05';
-  var comment="sdsdsd"
+  const {id,
+    type,
+    from,
+    to,
+    comment}=req.body;
+
     const leaveService= new LeaveService(db);
     var stmt=await leaveService.applyLeave(id,type,from,to,comment);
     res.json({

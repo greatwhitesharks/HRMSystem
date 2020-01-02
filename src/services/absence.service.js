@@ -109,6 +109,7 @@ class AbsenceService {
   }
 
   async applyLeave(id,type,from,to,comment){
+    console.log(to);
     const absenceRepo = new AbsenceRepository(this.db);
     var stmt=await this.isAvailableLeave(id,type);
     if (stmt==true){
