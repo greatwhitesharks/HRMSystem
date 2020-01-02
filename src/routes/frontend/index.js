@@ -130,6 +130,15 @@ router.get('/employee-reports/', reportController.generateEmployeeReport);
 
 router.get('/leave-reports/', reportController.generateLeaveReport);
 
+router.get('/empType/add', (req, res) => {
+  res.render('empType/add', {
+    layout: 'layouts/main',
+    title: 'Add Employee Type',
+    empType: {},
+  });
+});
+
+=======
 
 /**
  * Roles
@@ -250,7 +259,5 @@ router.post('/custom-attribute/create', (req, res)=>{
 // router.get('custom-attribute/all')
 
 // router.get('custom-attribute/delete')
-
-
 
 module.exports = router;
