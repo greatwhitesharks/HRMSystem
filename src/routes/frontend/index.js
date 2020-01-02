@@ -60,10 +60,34 @@ router.get('/leave/viewAll', async (req, res) => {
   var leaveInfoAll=await leaveService.getLeaveInfoAll(supervisorId);
   res.render('leave/all', {
     layout: 'layouts/main',
-    title: 'LeaveManger',
+    title: 'Leave Manger',
     leaveInfoAll,
   });
 });
+  router.get('/leave/add', async (req, res) => {
+    const leaveService= new LeaveService(db);
+    var employeeId=1;//for test purpses
+    var leaveInfo=await leaveService.getLeaveInfo(employeeId);
+    res.render('leave/single', {
+      layout: 'layouts/main',
+      title: 'Leave Details And Form',
+      leaveInfo
+    }); 
+});
+
+router.post('/leave/apply', async (req, res) => {
+  const leaveService= new LeaveService(db);
+  var id=1;//for test purpses
+  const {
+    type,
+    from,
+    to,
+    comment}=req.body;
+    var stmt=await leaveService.applyLeave(id,type,from,to,comment);
+    console.log(stmt);
+    
+}); 
+
 router.get('/leave/approve/:id', async(req, res) => {
   var supervisorId=1;
   const  leaveService= new LeaveService(db);
