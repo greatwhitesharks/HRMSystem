@@ -1,0 +1,51 @@
+<%- contentFor('body') %>
+<div class="row">
+  <div class="col-md">
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Permissions in Role</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+
+        <% if(roles!==[]) {%>
+        <table id="example1" class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th>Role</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+            <%for (const role of roles) { %>
+          <tr>
+            <td><%= role %></td>
+            <td><a href="/roles/<%= role %>/remove">Delete</a></td>
+          </tr>
+          <% } %>
+          </tbody>
+          <tfoot>
+          <tr>
+            <th>Role</th>
+            <th>Action</th>
+          </tr>
+          </tfoot>
+        </table>
+
+        <% } else { %>
+          No Roles
+          <%}%>
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </div>
+
+</div>
+
+<%-contentFor('styles')%>
+
+
+<%-contentFor('scripts')%>
+
+

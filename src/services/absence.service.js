@@ -33,9 +33,10 @@ class AbsenceService {
     const data = {};
 
     // Convet snake_case properties to camelCase
-    for (const key of Object.keys(result[0][0])) {
-      data[camelCase(key)] = data[key];
+    for (const key of Object.keys(result[0])) {
+      data[camelCase(key)] = result[0][key];
     }
+
     return new Absence(data);
   }
 
@@ -48,10 +49,12 @@ class AbsenceService {
    */
   async approveLeave(leaveId, requesterId) {
     const absenceRepo = new AbsenceRepository(this.db);
-    const leave = this.getById(leaveId);
-    
-    if (canModifyLeaveState(leave, requesterId)) {
-      leave.supervisor = requesterId;
+
+    const leave = leaveId;
+
+    if (await this.canApproveDeclineLeave(leave, requesterId)) {
+
+      leave.approvedBy = requesterId;
       leave.status = 'approved';
       await absenceRepo.save(leave);
       return leave;
@@ -67,10 +70,10 @@ class AbsenceService {
    * @return {Absence} leave
    */
   async declineLeave(leaveId, requesterId) {
-    const leave = this.getById(leaveId);
+    const leave = leaveId;
     const absenceRepo = new AbsenceRepository(this.db);
 
-    if (this.canApproveDeclineLeave(leave, requesterId)) {
+    if (await this.canApproveDeclineLeave(leave, requesterId)) {
       leave.supervisor = requesterId;
       leave.status = 'declined';
       await absenceRepo.save(leave);
@@ -86,8 +89,9 @@ class AbsenceService {
    * @param {Number} requesterId
    */
   async canApproveDeclineLeave(leave, requesterId) {
-    const employee = EmployeeRecordService.getById(leave.employeeRecordId);
-    return (employee.supervisorId === requesterId);
+    const employee = await (new EmployeeRecordService(this.db)).getById(leave.employeeRecordId);
+
+    return (employee.supervisor_id === requesterId);
   }
 
   async getLeaveInfoAll(superviserId){

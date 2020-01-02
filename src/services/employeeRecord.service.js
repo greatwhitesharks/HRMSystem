@@ -31,13 +31,14 @@ class EmployeeRecordService {
     // TODO: Refactor this and getId
     // Insert employee record
     const recordRepo = new EmployeeRecordRepository(this.db);
-
+ 
     data.id = (await recordRepo.save(data))[0].insertId;
-
-
+  
     // TODO : Do the filtering here not in the repository
     const customRepo = new CustomAttributeValueRepository(this.db);
     let attributes = {};
+    console.log(custom);
+  
     if (Object.keys(custom).length) {
       attributes = await customRepo.createMany(data.id, custom);
     }
@@ -46,7 +47,7 @@ class EmployeeRecordService {
 
     Object.assign(employee, data);
     Object.assign(employee, attributes);
-
+ 
     return new EmployeeRecord(employee);
   }
 
@@ -126,6 +127,12 @@ class EmployeeRecordService {
     const offset = pageSize * (page - 1);
     const results = await repo.search(term, branch, limit, offset);
     return results;
+  }
+
+  async getUsers(){
+    const sql = `SELECT er.* from employee_record er JOIN employee_account ea on er.id
+    = ea.employee_record_id`;
+    return (await this.db.execute(sql))[0];
   }
 }
 

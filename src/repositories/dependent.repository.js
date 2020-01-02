@@ -30,6 +30,7 @@ class DependentRepository extends BaseRepository {
     for (const dependent of dependents) {
       flat.push(...Object.values(dependent));
     }
+    console.log(sql);
 
     return await this.db.execute(sql, flat);
   }

@@ -1,0 +1,124 @@
+<%- contentFor('body') %>
+<div class="row">
+  <div class="col-md-6">
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Permissions in Role</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th>Permission</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+            <% for(const p of perms) {%>
+          <tr>
+            <td><%=p.action%> <%=p.entity%> in <%=p.group%></td>
+            <td><a href="/roles/<%=role%>/delete/permission/<%=p.entity%>/<%=p.action%>/<%=p.group%>">Delete</a></td>
+          </tr>
+          <% } %>
+          </tbody>
+          <tfoot>
+          <tr>
+            <th>Permission</th>
+            <th>Action</th>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </div>
+  <div class="col-md-6">
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Users in Row</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Department</th>
+            <th>Branch</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+            <% for(const p of users) {%>
+              <tr>
+                <td><%=p.first_name%></td>
+                <td><%=p.last_name%></td>
+                <td><%=p['department']%></td>
+                <td><%=p['branch']%></td>
+                <td><a href="/roles/<%=role%>/delete/user/<%=p.id%>">Delete</a></td>
+              </tr>
+              
+              <% } %>
+        
+          </tbody>
+          <tfoot>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Department</th>
+            <th>Branch</th>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </div>
+  <div class="col-md-6">
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Job Title in Role</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th>Job Title</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+            <% for(const p of jobs) {%>
+              <tr>
+                <td><%=p.job_title%></td>
+                <td><a href="/roles/<%=role%>/delete/job/<%=p.job_title%>">Delete</a></td>
+              </tr>
+              
+              <% } %>
+   
+          </tbody>
+          <tfoot>
+          <tr>
+            <th>Job Title</th>
+            <th>Action</th>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </div>
+</div>
+
+<%-contentFor('styles')%>
+
+
+<%-contentFor('scripts')%>
+
+

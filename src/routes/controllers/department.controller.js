@@ -5,6 +5,7 @@ const DepartmentService = require('../../services/department.service');
  *
  */
 class DepartmentController {
+  /** 
   /** *
      *
      * @param {*} req
@@ -22,7 +23,7 @@ class DepartmentController {
 
 
     req.flash('success', 'Department Created Successfully!');
-    res.redirect('/department/add');
+    res.redirect('/roles/add');
     // return res.json({status: 'success'});
   }
 
@@ -33,7 +34,7 @@ class DepartmentController {
      * @param {*} next
      */
   static async delete(req, res, next) {
-    const service = new DepartmentController(db);
+    const service = new DepartmentService(db);
     await service.delete(req.departmentId);
     req.flash('success', 'Department Deleted Successfully!');
     res.redirect('/department/');

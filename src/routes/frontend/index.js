@@ -1,9 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../../db');
+const _ = require('lodash');
 const {ensureLoggedIn, ensureLoggedOut} = require('connect-ensure-login');
 const CustomAttributeService =
   require('../../services/customAttribute.service');
+const RoleService = require('../../services/roleAndPermission.service');
+const BaseRepository = require('../../db/common/baseRepository');
+const RecordService = require('../../services/employeeRecord.service');
+
   const LeaveService =
   require('../../services/absence.service');
 const reportController = require('../controllers/report.controller');
@@ -51,7 +56,7 @@ router.get('/branch/add', (req, res) => {
 
 router.get('/leave/viewAll', async (req, res) => {
   const  leaveService= new LeaveService(db);
-  var supervisorId=1;//for test purpses
+  var supervisorId=2//for test purpses
   var leaveInfoAll=await leaveService.getLeaveInfoAll(supervisorId);
   res.render('leave/all', {
     layout: 'layouts/main',
@@ -80,6 +85,18 @@ router.get('/department/add', (req, res) => {
     department:{},
   });
 });
+
+router.get('/department/remove/:id', (req, res) => {
+  res.render('department/single', {
+    layout: 'layouts/main',
+    title: 'Add Department',
+    department:{},
+  });
+
+  
+});
+
+
 /**
  * Employee By Properies (Department Name, PayGrade, JobTitle, Employment Type, Custom Attributes)
  * Leaves by  Properties
@@ -120,5 +137,127 @@ router.get('/empType/add', (req, res) => {
     empType: {},
   });
 });
+
+=======
+
+/**
+ * Roles
+ *
+ */
+
+router.get('/roles/', async (req, res)=>{
+  const roles = await (new RoleService(db)).getRoles();
+  console.log(roles);
+  res.render('role/all', {
+    layout: 'layouts/main',
+    roles: roles,
+    title: 'All Roles',
+  });
+});
+
+
+router.get('/roles/:role/add/user', async (req, res)=>{
+  let users = await (new RecordService(db)).getUsers();
+  users = users.map( x =>{
+    return {
+      id:x.id, 
+      lbl: _.startCase(`${x.id} - ${x.first_name} ${x.last_name}`),
+    }
+});
+
+  res.render('role/addUser', {
+    layout: 'layouts/main',
+    title: 'Add User to Role',
+    users,
+    role: req.params.role,
+  });
+});
+
+router.get('/roles/:role/add/permission', async (req, res)=>{
+  let permissions = await (new RoleService(db)).getPermissions();
+  permissions = permissions.map(x => {
+    return {
+      val: `${x.action}_${x.entity}_${x.group}`,
+      lbl: `${x.action} ${x.entity} in ${x.group}`
+    }
+  });
+  res.render('role/addPermission', {
+    layout: 'layouts/main',
+    title: 'Add User to Role',
+    permissions,
+    role: req.params.role,
+  });
+});
+
+router.get('/roles/:role/add/job', async (req, res)=>{
+  let jobs = await (new BaseRepository(db, 'job_title')).getAll();
+  jobs = jobs.map(x=>{ 
+    return {val:x.title, lbl:_.startCase(x.title)};
+});
+
+console.log(req.params.role+
+  'sdas')
+  res.render('role/addJobTitle', {
+    layout: 'layouts/main',
+    title: 'Add Job Title to Role',
+    jobs,
+    role: req.params.role,
+  });
+});
+
+
+router.get('/roles/add', (req, res)=>{
+  res.render('role/createRole', {
+    layout: 'layouts/main',
+    title: 'Add Role',
+  });reate
+});
+
+router.get('/roles/:role/remove', async (req, res)=>{
+  await (new RoleService(db)).deleteRole(req.params.role);
+  res.redirect('/roles')
+});
+
+router.get('/roles/:role',  async (req, res)=>{
+  const users = await (new RoleService(db)).getUsersInRole(req.params.role);
+  const perms = await (new RoleService(db)).getPermissionsInRole(req.params.role);
+  const jobs = await (new RoleService(db)).getJobsInRole(req.params.role);
+  console.log(jobs);
+  res.render('role/single', {
+    layout: 'layouts/main',
+    title: 'Role',
+    role: req.params.role,
+    users,
+    perms,
+    jobs,
+  });
+});
+
+
+
+
+router.get('/custom-attribute/create', (req, res)=>{
+  res.render('custom/add', {
+    layout: 'layouts/main',
+    title: 'Create Attributte',
+    attribute: {}
+  });
+});
+
+
+router.post('/custom-attribute/create', (req, res)=>{
+  (new (require('../../services/customAttribute.service'))(db)).createAttribute(
+    req.body.attributeName,
+    req.body.attributeDefault,
+    'text',
+  );
+  req.flash('success','Success');
+  res.redirect('/custom-attribute/create');
+});
+
+
+// router.get('custom-attribute/all')
+
+// router.get('custom-attribute/delete')
 
 module.exports = router;

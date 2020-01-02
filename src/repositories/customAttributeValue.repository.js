@@ -31,15 +31,18 @@ class CustomAttributeValueRepository extends BaseRepository {
     );
 
     const flat = [];
-
     const attributeRepo = new CustomAttributeRepository(this.db);
-    const attributes = await attributeRepo.getAttributes(['names']);
+   
+    const attributes = await attributeRepo.getAttributes(['name']);
     for (const attribute of attributes) {
-      flat.push(id, attribute, object[camelCase(attribute.name)]);
+    
+      console.log('IN' + object[camelCase(attribute.name)]);
+      flat.push( attribute.name, object[camelCase(attribute.name)] ||'-',recordId);
     }
-    (query);
-    await this.db.execute(query, flat);
-    return customAttributes;
+
+    const result =await this.db.execute(query, flat);
+ 
+    return true;
   }
 }
 

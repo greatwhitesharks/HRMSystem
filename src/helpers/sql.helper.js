@@ -9,18 +9,18 @@ const sqlHelper = {
       tuples.push(`(${attributes.map((key) => '?').join(', ')})`);
     }
     const query = `INSERT INTO ${table}` +
-            `(${attributes.map(((key)=> key)).join(', ')}) VALUES ` +
+            `(${attributes.map(((key)=> '`'+key+'`')).join(', ')}) VALUES ` +
             tuples.join(', ');
-
+    console.log(query);
     return query;
   },
   prepareForSave(table, attributes, count) {
     const values = attributes.map((key) => {
-      return `${key} = VALUE(${key})`;
+      return `\`${key}\` = VALUES(${key})`;
     }).join(',');
 
-    return prepareForInsert(table, attributes, count) +
-     ` ON DUPLICATE KEY UPDATE SET ` +
+    return this.prepareForInsert(table, attributes, count) +
+     ` ON DUPLICATE KEY UPDATE ` +
      values;
   },
 };
