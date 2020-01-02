@@ -29,6 +29,7 @@ passport.deserializeUser(async function(email, done) {
   const {roles, perms} = await accountService.getPermissions(user.record.id, user.record.jobTitle);
           user.roles = roles;
           user.perms = perms;
+        
   done(null, user);
 });
 
@@ -111,6 +112,10 @@ app.use((req, res, next)=> {
   next();
 });
 
+app.use((req, res)=>{
+  // req.locals.roles = (req.user) ? req.user.roles : [];
+  // req.locals.perms =  (req.user) ? req.user.perms : [];
+})
 
 app.use('/', indexRouter);
 app.use('/', frontendRouter);
